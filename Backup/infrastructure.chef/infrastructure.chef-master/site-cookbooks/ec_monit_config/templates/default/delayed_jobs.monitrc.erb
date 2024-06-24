@@ -1,0 +1,24 @@
+<% @delayed_job_worker_count.times do |i| %>
+<% if @retrievals_exists %>
+check process <%= @app_name %>_delayed_job.<%= i %>
+  with pidfile /data/<%= @app_name %>/shared/tmp/pids/delayed_job.<%= i %>.pid
+  start program = "/bin/bash -c 'cd <%= @app_path %> && /usr/bin/env ENGINE_RETRIEVALS=1 RAILS_ENV=<%= @rails_env %> <%= @app_path %><%= @delayed_job_start %> start <%= @delayed_job_options %>'"
+    as UID deploy
+    as GID deploy
+  stop program = "/bin/bash -c '/bin/kill `cat /data/<%= @app_name %>/shared/tmp/pids/delayed_job.<%= i %>.pid`'"
+  if totalmem > 1800 MB for 2 cycles then alert
+  if totalmem > 2 GB for 2 cycles then restart
+  group <%= @app_name %>_delayed_job
+<% else %>
+check process <%= @app_name %>_delayed_job.<%= i %>
+  with pidfile /data/<%= @app_name %>/shared/tmp/pids/delayed_job.<%= i %>.pid
+  start program = "/bin/bash -c 'cd <%= @app_path %> && /usr/bin/env RAILS_ENV=<%= @rails_env %> <%= @app_path %><%= @delayed_job_start %> start <%= @delayed_job_options %>'"
+    as UID deploy
+    as GID deploy
+  stop program = "/bin/bash -c '/bin/kill `cat /data/<%= @app_name %>/shared/tmp/pids/delayed_job.<%= i %>.pid`'"
+  if totalmem > 900 MB for 2 cycles then alert
+  if totalmem > 1 GB for 2 cycles then restart
+  group <%= @app_name %>_delayed_job
+<% end %>
+
+<% end %>

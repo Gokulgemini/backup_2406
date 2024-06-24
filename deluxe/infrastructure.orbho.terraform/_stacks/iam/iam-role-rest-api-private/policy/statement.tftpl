@@ -1,0 +1,45 @@
+${jsonencode({
+  Version = "2012-10-17",
+  Statement = [
+    {
+      "Action": [
+        "sqs:ReceiveMessage",
+        "sqs:SendMessage",
+        "sqs:ListQueues"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "${sqs-dep-batch-queue-arn}"
+      ]
+    },
+    {
+         "Action":[
+            "kms:Encrypt",
+            "kms:Decrypt",
+            "kms:GenerateDataKey",
+            "kms:DescribeKey",
+            "kms:ReEncryptFrom",
+            "kms:ReEncryptTo"
+         ],
+         "Effect":"Allow",
+         "Resource":[
+            "${kms-dep-processors-key-arn}"
+         ]
+    },
+    {
+      "Sid": "AccessForCloudwatchLogs",
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:DescribeLogGroups",
+        "logs:DescribeLogStreams",
+        "logs:PutLogEvents",
+        "logs:GetLogEvents",
+        "logs:FilterLogEvents"
+      ],
+      "Resource": "*"
+    }
+  ]
+})
+}

@@ -1,0 +1,47 @@
+@use '@angular/material' as mat;
+@include mat.core();
+
+$custom-primary: mat.define-palette(mat.$grey-palette, 800);
+$custom-accent: mat.define-palette(mat.$blue-grey-palette, 600);
+
+$custom-theme: mat.define-dark-theme((
+ color: (
+   primary: $custom-primary,
+   accent: $custom-accent,
+ ),
+ typography: mat.define-typography-config(),
+ density: 0,
+));
+
+@include mat.core-theme($custom-theme);
+@include mat.toolbar-theme($custom-theme);
+@include mat.slider-theme($custom-theme);
+@include mat.button-theme($custom-theme);
+@include mat.progress-spinner-theme($custom-theme);
+@include mat.tooltip-theme($custom-theme);
+
+.mat-toolbar-row{
+    padding: 0px !important;
+}
+
+.mat-button{
+    margin-left: 15px !important;
+    margin-top: 0px !important;
+    padding: 0px !important;
+    padding-top: 0px !important;
+}
+
+.mat-progress-spinner {
+    position: relative;
+    margin: 5% 0% 0% 40%; 
+    zoom: 1; 
+}
+
+.mat-tooltip{
+    font-size: 15px !important;
+    margin-top: 5% !important;    
+}
+
+@media only print{
+    .mat-tooltip{ display: none; }
+}

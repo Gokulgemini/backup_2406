@@ -1,0 +1,15 @@
+[Unit]
+Description=<%= @service_name %>
+
+[Service]
+EnvironmentFile= <%= @environment_file_location %>
+ExecReload=/bin/kill -SIGUSR2 $MAINPID
+ExecStart=<%= @bundle %> exec unicorn -E <%= @app_environment %> -c <%= @config %>
+PIDFile=<%= @pidfile %>
+Restart=on-failure
+Type=simple
+User=<%= @user %>
+WorkingDirectory=<%= @working_dir %>
+
+[Install]
+WantedBy=multi-user.target

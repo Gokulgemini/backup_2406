@@ -1,0 +1,7 @@
+{
+  "id": "matcher",
+  "uid": 1007,
+  "groups": [ "netowl" ],
+  "shell": "\/bin\/bash",
+  "action": "create"
+}

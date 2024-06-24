@@ -1,0 +1,100 @@
+syntax = "proto3";
+
+package imageVaultGrpc;
+
+// The grpc service definition.
+service ImageVaultGrpcService {
+  rpc AddImage (AddImageRequest) returns (AddImageReply) {}
+
+  rpc AddTiff (AddTiffRequest) returns (AddImageReply) {}
+
+  rpc GetImage (GetImageRequest) returns (GetImageReply) {}
+
+  rpc GetImageByIrn (GetImageByIrnRequest) returns (GetImageReply) {}
+
+  rpc GetImageForLegacy (GetImageForLegacyRequest) returns (GetImageReply) {}
+
+  rpc GetImageAsJpeg (GetImageAsJpegRequest) returns (GetImageReply) {}
+
+  rpc WriteImageToWebClient (WriteImageToWebClientRequest) returns (WriteImageToWebClientReply) {}
+
+  rpc VerifyImageSizeGrpc (VerifyImageSizeRequest) returns (Void) {}
+}
+
+message AddImageRequest {
+	string RequestId =1;
+	bytes Content =2;
+	string MimeType =3;
+}
+
+message AddTiffRequest {
+	string RequestId =1;
+	bytes Content =2;
+}
+
+message AddImageReply {
+	string ImageId =1;
+}
+
+message GetImageRequest {
+	string RequestId =1;
+	string ImageId =2;
+	int32 Width =3;
+}
+
+message GetImageAsJpegRequest {
+	string RequestId =1;
+	string ImageId =2;
+	int32 Width =3;
+}
+
+message GetImageByIrnRequest {
+	string RequestId =1;
+	string TenantId = 2;
+	string IrnId =3;
+	string Surface =4;
+	int32 Page =5;
+	int32 Width =6;
+}
+
+message GetImageForLegacyRequest {
+	string RequestId =1;
+	string LegacyTarget =2;
+	string TenantId = 3;
+	string UserId =4;
+	string IrnId =5;
+	int32 SeqNum =6;
+	string Surface =7;
+	int32 Page =8;
+}
+
+message VerifyImageSizeRequest {
+	string RequestId =1;
+	string ImageId =2;
+}
+
+message GetImageReply {
+	bytes Content =1;
+	string MimeType =2;
+	int32 Width =3;
+	int32 Height =4;
+}
+
+message WriteImageToWebClientRequest {
+	string RequestId =1;
+	string TenantId =2;
+	string ImageId =3;
+	string Filepath =4;
+	string Filename =5;
+}
+
+message WriteImageToWebClientReply {
+	string ImageId =1; 
+	string ImageFilename =2;
+	string ImageUrl =3;
+	int32 TiffSize =4;
+	int32 TiffWidth =5;
+	int32 TiffHeight =6;
+}
+
+message Void {} 

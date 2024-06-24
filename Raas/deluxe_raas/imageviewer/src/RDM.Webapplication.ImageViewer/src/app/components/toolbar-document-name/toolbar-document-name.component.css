@@ -1,0 +1,55 @@
+.inputDocumentName{
+    font-size: 12pt; 
+    margin-top: 3px;
+    padding-left: 5px;
+    line-height: 50%;
+    border-radius: .25rem;
+    width: 510px;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+}
+
+#cancelDocumentName{
+    border-right: thin solid #B0BEC5;
+    padding-right: 4px !important;
+}
+
+#documentNameSummarizedLabel{
+    display: none;
+}
+
+#documentNameSpan{
+    display: none;
+}
+
+#divDocumentName{
+    font-size: 12pt; 
+    padding-right: 2%;         
+}
+
+#divDocumentName button {
+    min-width: 20px;
+    margin-left: 4px !important;      
+}
+
+#documentNameLabel{ 
+    padding-right: 10px; 
+}
+
+.documentName-tooltip {
+    margin: 25px 0% !important;
+    word-break: break-all;
+}
+
+@media only screen and (-ms-high-contrast: none), (-ms-high-contrast: active) { .inputDocumentName{ width: 520px; } }
+
+@media all and (-webkit-min-device-pixel-ratio: 0) { #saveDocumenteName, #editDocumentName{ padding-right: 10px !important; } }
+
+@media only screen and (max-width: 1000px){
+    .inputDocumentName{ width: 40% !important; padding-left: 5px !important; }
+    #documentNameSpan { display: inline; padding-left: 5px;  cursor: pointer; }
+    #documentNameLabel{ display: none; }
+    #documentNameSummarizedLabel{ display: inline; padding-left: 1px;  }   
+    #divDocumentName{ margin-left: 10px; }
+}

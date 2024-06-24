@@ -1,0 +1,11 @@
+name 'ec_mysql'
+maintainer 'David Rodriguez'
+maintainer_email 'david.rodriguez@deluxe.com'
+license 'All Rights Reserved'
+description 'Installs/Configures ec_mysql'
+long_description 'Installs/Configures ec_mysql'
+version '0.1.8'
+chef_version '>= 14.0'
+
+depends 'mysql', '~> 8.6.0'
+depends 'aws', '~> 8.1.0'

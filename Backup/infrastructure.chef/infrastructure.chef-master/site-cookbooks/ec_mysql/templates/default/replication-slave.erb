@@ -1,0 +1,92 @@
+[client]
+<% @ec_vars_client.each_pair do |key, value| -%>
+    <% unless value.nil? -%>
+<%= "#{key}" %> = <%= "#{value}" %>
+    <% end %>
+<% end %>
+
+[mysqladmin]
+<% @ec_vars_mysqladmin.each_pair do |key, value| -%>
+    <% unless value.nil? -%>
+<%= "#{key}" %> = <%= "#{value}" %>
+    <% end %>
+<% end %>
+
+[mysqlcheck]
+<% @ec_vars_mysqlcheck.each_pair do |key, value| -%>
+    <% unless value.nil? -%>
+<%= "#{key}" %> = <%= "#{value}" %>
+    <% end %>
+<% end %>
+
+[mysqlimport]
+<% @ec_vars_mysqlimport.each_pair do |key, value| -%>
+    <% unless value.nil? -%>
+<%= "#{key}" %> = <%= "#{value}" %>
+    <% end %>
+<% end %>
+
+[mysqlshow]
+<% @ec_vars_mysqlshow.each_pair do |key, value| -%>
+    <% unless value.nil? -%>
+<%= "#{key}" %> = <%= "#{value}" %>
+    <% end %>
+<% end %>
+
+[myisampack]
+<% @ec_vars_myisampack.each_pair do |key, value| -%>
+    <% unless value.nil? -%>
+<%= "#{key}" %> = <%= "#{value}" %>
+    <% end %>
+<% end %>
+
+[mysqld]
+server-id                       = 2
+auto_increment_offset           = 2
+auto_increment_increment        = 2
+binlog_format                   = mixed
+expire_logs_days                = 7
+log-bin                         = mysqld-bin
+log_slave_updates
+read-only
+<% @ec_vars_mysqld.each_pair do |key, value| -%>
+    <% unless value.nil? -%>
+<%= "#{key}" %> = <%= "#{value}" %>
+    <% end %>
+<% end %>
+
+[mysqldump]
+<% @ec_vars_mysqldump.each_pair do |key, value| -%>
+    <% unless value.nil? -%>
+<%= "#{key}" %> = <%= "#{value}" %>
+    <% end %>
+<% end %>
+
+[mysql]
+<% @ec_vars_mysql.each_pair do |key, value| -%>
+    <% unless value.nil? -%>
+<%= "#{key}" %> = <%= "#{value}" %>
+    <% end %>
+<% end %>
+
+[isamchk]
+<% @ec_vars_isamchk.each_pair do |key, value| -%>
+    <% unless value.nil? -%>
+<%= "#{key}" %> = <%= "#{value}" %>
+    <% end %>
+<% end %>
+
+[myisamchk]
+<% @ec_vars_myisamchk.each_pair do |key, value| -%>
+    <% unless value.nil? -%>
+<%= "#{key}" %> = <%= "#{value}" %>
+    <% end %>
+<% end %>
+
+[mysqlhotcopy]
+<% @ec_vars_mysqlhotcopy.each_pair do |key, value| -%>
+    <% unless value.nil? -%>
+<%= "#{key}" %> = <%= "#{value}" %>
+    <% end %>
+<% end %>
+

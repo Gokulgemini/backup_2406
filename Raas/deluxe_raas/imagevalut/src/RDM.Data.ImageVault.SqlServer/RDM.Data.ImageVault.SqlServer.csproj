@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Copyright>RDM Corporation</Copyright>
+    <AssemblyTitle>RDM.Data.ImageVault.SqlServer</AssemblyTitle>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <VersionPrefix>1.4.0</VersionPrefix>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AssemblyName>RDM.Data.ImageVault.SqlServer</AssemblyName>
+    <PackageId>RDM.Data.ImageVault.SqlServer</PackageId>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RDM.Data.ImageVault\RDM.Data.ImageVault.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="RDM.Core.SqlServer" Version="1.4.42" />
+  </ItemGroup>
+
+</Project>

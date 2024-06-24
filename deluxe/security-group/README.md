@@ -1,0 +1,1 @@
+This is a fairly simple module that just creates VPC Security Groups which can be used for any EC2 instances.

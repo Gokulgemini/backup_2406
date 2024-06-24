@@ -1,0 +1,32 @@
+# Deployed by Chef. Make changes in the databag used by chef to make
+# permanent.  This will be overwritten on the next Chef run.
+
+default: &default
+<% @configuration.each do |key, value| %>
+ <% if value.is_a?(Hash) %>
+<%= key %>:
+  <% value.each do |slave_key, slave_value|%>
+  <%= slave_key %>: <%= slave_value %>
+  <% end %>
+  <% else %>
+  <%= key %>: <%= value %>
+  <% end %>
+<% end %>
+development:
+  <<: *default
+test:
+  <<: *default
+staging:
+  <<: *default
+sandbox:
+  <<: *default
+mpx_sandbox:
+  <<: *default
+training:
+  <<: *default
+preproduction:
+  <<: *default
+production:
+  <<: *default
+lz:
+  <<: *default

@@ -1,0 +1,18 @@
+# Directive assigns configuration for the virtual server.
+server {
+  listen <%= @server_port %> ssl;
+  ssl_certificate <%= @ssl_cert %>;
+  ssl_certificate_key <%= @ssl_key %>;
+
+  # Take any verifyvalid subdomain and send to echecks.com instead.
+  # i.e. payme.verifyvalid.com => payme.echecks.com
+  # This will not do the same for api.verifyvalid.com because we have a more specific rule for it in
+  # the configs
+  server_name ~^(?<subdomain>[^.]+)\.verifyvalid\.com$;
+  return 301 $scheme://$subdomain.echecks.com$request_uri;
+
+  access_log /var/log/nginx/catchall.verifyvalid.com.access.log main;
+
+  error_log /var/log/nginx/catchall.verifyvalid.com.error.log notice;
+
+}

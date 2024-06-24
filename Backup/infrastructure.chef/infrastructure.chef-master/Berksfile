@@ -1,0 +1,41 @@
+source 'https://supermarket.chef.io'
+
+cookbook 'ec_app_config', path: './site-cookbooks/ec_app_config'
+
+cookbook 'ec_clamav', path: './site-cookbooks/ec_clamav'
+
+cookbook 'ec_cron', path: './site-cookbooks/ec_cron'
+
+cookbook 'ec_custom_fonts', path: './site-cookbooks/ec_custom_fonts'
+
+cookbook 'ec_deluxe_sudoers', path: './site-cookbooks/ec_deluxe_sudoers'
+
+cookbook 'ec_api_verifyvalid', path: './site-cookbooks/ec_api_verifyvalid'
+
+cookbook 'ec_memcached', path: './site-cookbooks/ec_memcached'
+
+cookbook 'ec_monit', path: './site-cookbooks/ec_monit'
+
+cookbook 'ec_monit_config', path: './site-cookbooks/ec_monit_config'
+
+cookbook 'ec_mysql', path: './site-cookbooks/ec_mysql'
+
+cookbook 'ec_newrelic_infra', path: './site-cookbooks/ec_newrelic_infra'
+
+cookbook 'ec_nginx', path: './site-cookbooks/ec_nginx'
+
+cookbook 'ec_rails_keys', path: './site-cookbooks/ec_rails_keys'
+
+cookbook 'ec_ruby', path: './site-cookbooks/ec_ruby'
+
+cookbook 'ec_security_updates', path: './site-cookbooks/ec_security_updates'
+
+cookbook 'ec_unicorn', path: './site-cookbooks/ec_unicorn'
+
+cookbook 'ec_prompt', path: './site-cookbooks/ec_prompt'
+
+cookbook 'ec_users', path: './site-cookbooks/ec_users'
+
+cookbook 'ec_common', path: './site-cookbooks/ec_common'
+
+cookbook 'ec_pdftk', path: './site-cookbooks/ec_pdftk'

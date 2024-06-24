@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <Copyright>RDM Corporation</Copyright>
+    <AssemblyTitle>RDM.Webservice.ImageViewerAPI</AssemblyTitle>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <VersionPrefix>1.4.0</VersionPrefix>
+    <TargetFramework>net6.0</TargetFramework>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <AssemblyName>RDM.Webservice.ImageViewerAPI</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <PackageId>RDM.Webservice.ImageViewerAPI</PackageId>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RDM.Maps.ImageViewerAPI\RDM.Maps.ImageViewerAPI.csproj" />
+    <ProjectReference Include="..\RDM.Services.ImageViewerAPI.Mock\RDM.Services.ImageViewerAPI.Mock.csproj" />
+    <ProjectReference Include="..\RDM.Services.ImageViewerAPI\RDM.Services.ImageViewerAPI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EnyimMemcachedCore" Version="2.5.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.10" />
+    <PackageReference Include="OpenTracing.Contrib.NetCore" Version="0.8.0" />
+    <PackageReference Include="RDM.AspNetCore.Authentication.Itms" Version="1.4.16" />
+    <PackageReference Include="RDM.Core.Configuration" Version="1.4.43" />
+    <PackageReference Include="RDM.Lexicon.Annotations" Version="1.4.10" />
+    <PackageReference Include="RDM.Messaging.RabbitMQ" Version="1.4.43" />
+    <PackageReference Include="RDM.Middleware.ItmsApi" Version="1.4.77" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+    <PackageReference Include="Serilog.Sinks.Graylog" Version="2.3.0" />
+  </ItemGroup>
+
+</Project>

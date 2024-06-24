@@ -1,0 +1,26 @@
+<div  class='toolbar'>
+    <mat-toolbar class="dark-theme" color="primary" id="retreive-image-btns">
+        <mat-toolbar-row>
+            <toolbar-buttons 
+                [irn]="irn"
+                [host]="host"
+                [moduleName]="moduleName"
+                [isFullscreen]="isFullscreen"
+                [isEditable]="isEditable"
+                [isDocumentNameEditable]="isDocumentNameEditable"
+                [divToBeCopiedToClipboard]="divToBeCopiedToClipboard" 
+                [divToBePrinted]="printDiv">
+            </toolbar-buttons>           
+            <ng-container *ngIf="showPaging">                
+                <toolbar-pagination></toolbar-pagination> 
+                <span class="fill-space"></span>               
+                <toolbar-document-name
+                    [irn]="irn"
+                    [moduleName]="moduleName"
+                    [isFullscreen]="isFullscreen"
+                    [isDocumentNameEditable]="isDocumentNameEditable">                        
+                </toolbar-document-name>
+            </ng-container>     
+        </mat-toolbar-row>
+    </mat-toolbar>    
+</div>

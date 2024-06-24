@@ -1,0 +1,18 @@
+${jsonencode({
+  "Version":"2012-10-17",
+  "Statement":[{
+      "Sid": "AllowCrossAccountResqueRole"
+      "Action": [
+        "sns:Publish",
+        "sns:SetTopicAttributes"
+      ]
+      "Effect": "Allow"
+      "Principal": {
+        "AWS": "arn:aws:iam::${pci_account_number}:role/resque-${infra_environment}-${app_environment}-role"
+      },
+      "Resource": [
+        "arn:aws:sns:${aws_region}:${account_number}:${file-events-topic-name}"
+      ]
+    }
+  ]
+})}

@@ -1,0 +1,11 @@
+{
+  "id": "t462163",
+  "groups": [ "penadmins"],
+  "comment": "Aidan Hallett",
+  "uid": 3001,
+  "shell": "\/bin\/bash",
+  "action": "create",
+  "ssh_keys": [
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDVNPQrSGR4Op3Hyj5cpX0mNXizMjqFp5JXUm8U/F8imDJodI3w+zlq1J7BUh+afghnnmfiAkGHCeMP7wosMg6MbByZypltQTn0o36T1r53aD0ZXft9wYtLIAtj05oA9XVZm361Hw+dbtFQ6386f4mCvDolWMbDdvXBpgfXsnYCoidbdrKutpD4QDV/DxKp5cn3eoF8iT7yqiqitA8pKtYJfKluiIh67KTX9rvne0wHAwN4Cvj5BO5r3/cuiY2osLPA6y6u89IhZf1Nn5d4tODIgzmKRR2lqqqYO5+rxd9pi9hshM/SQ97K4OsH0jmzWO7eT8yOOMPnBR6bQQ0XzpVMFwwxZXN2z58Zu8eWlAakAsU/wzNj0sLEQQf7Gmh3zxPv36e6GtTP3tUzxMFuEjqzUDheWPVTNO2pP5lJuE7mutUa/9gI1ZMSVHUyhCfc0KxWv5wB/KOz5/VOI4Ld4yal+kd1QrjYMWRXc4h7M7c4N48BaSUa3lGwXLpFkElHIXU= ahallett@Aidans-MacBook-Pro.local"
+  ]
+}

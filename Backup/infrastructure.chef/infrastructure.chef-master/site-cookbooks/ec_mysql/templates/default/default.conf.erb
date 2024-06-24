@@ -1,0 +1,4 @@
+[mysqld]
+<% ec_mysqld.each{ |key, value| %>
+<%= key %> = <%= value %>
+<%} %>

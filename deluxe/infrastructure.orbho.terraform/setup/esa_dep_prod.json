@@ -1,0 +1,16 @@
+{
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": [
+          "arn:aws:iam::637423585162:role/Terraform-Admin-Role",
+          "arn:aws:iam::851725215854:role/Terraform-Admin-Role",
+          "arn:aws:iam::058264534673:role/Terraform-Admin-Role"
+        ]
+      },
+      "Action": "s3:*",
+      "Resource": ["arn:aws:s3:::dep-esa-tf-east/*", "arn:aws:s3:::dep-esa-tf-east"]
+    }
+  ]
+}

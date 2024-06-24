@@ -1,0 +1,9 @@
+mode: Mainline
+branches:
+  develop:
+    regex: ^donotuse$
+  master:
+    regex: ^[dD]ev(elop)?(ment)?$
+ignore:
+  sha: []
+merge-message-formats: {}

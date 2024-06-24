@@ -1,0 +1,16 @@
+@Library('iabuildtools') _
+iaservicebuild projectName: "RDM.Service.ImageVault",
+  solutionFile: "ImageVault.sln",
+  deployProjects: ["RDM.Service.ImageVault"],
+  publishProjects: ["RDM.Model.ImageVault", "RDM.Messaging.ImageVault", "RDM.Client.ImageVault", "RDM.GRPC.ImageVault"],
+  skipDependencyTrack: false,
+  skipSonar: true,
+  sonarProjectKeyBase: "RDM.Service.ImageVault",
+  sonarProjectNameBase: "RDM.Service.ImageVault",
+  sonarCredentialsId: "jenkins_sonar_deluxe",
+  bitbucketProject: "itms",
+  bitbucketRepo: "imagevault",
+  helmPath: "helm",
+  helmRepo: "deluxe.itms.helm-local",
+  skipFortify: true,
+  buildEnvTag: "opencv"

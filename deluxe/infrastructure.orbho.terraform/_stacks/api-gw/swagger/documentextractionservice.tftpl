@@ -1,0 +1,342 @@
+${jsonencode({
+  "openapi": "3.0.1",
+    "info": {
+        "title": "document-extraction-service",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "${server_url}",
+            "x-amazon-apigateway-endpoint-configuration": {
+                "vpcEndpointIds": [
+                    "${vpc_endpoint_id}"
+                ]
+            }
+        }
+    ],
+    "paths": {
+        "/v1/Extraction/{product}/batch": {
+            "post": {
+                "operationId": "ProcessBatch",
+                "parameters": [
+                    {
+                        "name": "product",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BatchQueueRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "content": {}
+                    }
+                },
+                "x-amazon-apigateway-integration": {
+                    "credentials": "${api_integration_credentials}",
+                    "httpMethod": "POST",
+                    "uri": "${api_integration_uri}",
+                    "responses": {
+                        "default": {
+                            "statusCode": "200"
+                        }
+                    },
+                    "requestParameters": {
+                        "integration.request.path.product": "method.request.path.product",
+                        "integration.request.header.Content-Type": "'application/x-www-form-urlencoded'"
+                    },
+                    "requestTemplates": {
+                        "application/json": "Action=SendMessage&MessageBody=$input.body"
+                    },
+                    "passthroughBehavior": "when_no_templates",
+                    "type": "aws"
+                }
+            }
+        },
+        "/v1/Extraction/{product}/document": {
+            "post": {
+                "operationId": "ExtractFromSingleDocument",
+                "parameters": [
+                    {
+                        "name": "product",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SingleDocumentRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "content": {}
+                    }
+                },
+                "x-amazon-apigateway-integration": {
+                    "credentials": "${api_integration_credentials}",
+                    "httpMethod": "POST",
+                    "uri": "${api_integration_uri}",
+                    "responses": {
+                        "default": {
+                            "statusCode": "200"
+                        }
+                    },
+                    "requestParameters": {
+                        "integration.request.path.product": "method.request.path.product",
+                        "integration.request.header.Content-Type": "'application/x-www-form-urlencoded'"
+                    },
+                    "requestTemplates": {
+                        "application/json": "Action=SendMessage&MessageBody=$input.body"
+                    },
+                    "passthroughBehavior": "when_no_templates",
+                    "type": "aws"
+                }
+            }
+        },
+        "/v1/Extraction/{product}/documents": {
+            "post": {
+                "operationId": "ExtractFromMultipleDocuments",
+                "parameters": [
+                    {
+                        "name": "product",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MultipleDocumentsRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "200 response",
+                        "content": {}
+                    }
+                },
+                "x-amazon-apigateway-integration": {
+                    "httpMethod": "POST",
+                    "uri": "http://documentextractionservice.execute-api.${aws_region}.amazonaws.com/v1/extraction/{product}/documents",
+                    "responses": {
+                        "default": {
+                            "statusCode": "200"
+                        }
+                    },
+                    "passthroughBehavior": "when_no_match",
+                    "type": "http"
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "BatchQueueRequest": {
+                "type": "object",
+                "properties": {
+                    "product": {
+                        "type": "string"
+                    },
+                    "applicationId": {
+                        "type": "string"
+                    },
+                    "batchId": {
+                        "type": "string"
+                    },
+                    "customerId": {
+                        "type": "string"
+                    },
+                    "extractionParameters": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "callbackUri": {
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MetadataParameters": {
+                "type": "object",
+                "properties": {
+                    "micr": {
+                        "type": "string"
+                    },
+                    "amount": {
+                        "type": "string"
+                    },
+                    "addresses": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Address"
+                        }
+                    },
+                    "accountCreateDate": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "issuedName": {
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "Address": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "$ref": "#/components/schemas/AddressTypeCode"
+                    },
+                    "street": {
+                        "type": "string"
+                    },
+                    "city": {
+                        "type": "string"
+                    },
+                    "state": {
+                        "type": "string"
+                    },
+                    "zip": {
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "AddressTypeCode": {
+                "type": "string",
+                "enum": [
+                    "AccountHolder",
+                    "PlaceOfDeposit"
+                ]
+            },
+            "MultipleDocumentsRequest": {
+                "type": "object",
+                "properties": {
+                    "documents": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SingleDocumentRequest"
+                        }
+                    }
+                },
+                "additionalProperties": false
+            },
+            "DocumentTypeCode": {
+                "type": "string",
+                "enum": [
+                    "Check",
+                    "BusinessCheck",
+                    "Stub",
+                    "MoneyOrder",
+                    "Other"
+                ]
+            },
+            "Error": {
+                "title": "Error Schema",
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    }
+                }
+            },
+            "SingleDocumentRequest": {
+                "type": "object",
+                "properties": {
+                    "applicationId": {
+                        "type": "string"
+                    },
+                    "batchId": {
+                        "type": "string"
+                    },
+                    "customerId": {
+                        "type": "string"
+                    },
+                    "documentType": {
+                        "$ref": "#/components/schemas/DocumentTypeCode"
+                    },
+                    "documentName": {
+                        "type": "string"
+                    },
+                    "profileUri": {
+                        "type": "string"
+                    },
+                    "image": {
+                        "type": "string",
+                        "format": "byte"
+                    },
+                    "extraction": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ExtractionTypeCode"
+                        }
+                    },
+                    "metadata": {
+                        "$ref": "#/components/schemas/MetadataParameters"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ExtractionTypeCode": {
+                "type": "string",
+                "enum": [
+                    "Unknown",
+                    "Car",
+                    "Lar",
+                    "Payee",
+                    "Payer",
+                    "Micr",
+                    "Signature",
+                    "Iqa",
+                    "Pnv",
+                    "Serial",
+                    "Date"
+                ]
+            }
+        }
+    },
+    "x-amazon-apigateway-policy": {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Effect": "Allow",
+                "Principal": "*",
+                "Action": "execute-api:Invoke",
+                "Resource": "arn:aws:execute-api:*"
+            }
+        ]
+    }
+  
+})
+}

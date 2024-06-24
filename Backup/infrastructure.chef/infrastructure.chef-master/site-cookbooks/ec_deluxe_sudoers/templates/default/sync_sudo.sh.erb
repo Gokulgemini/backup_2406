@@ -1,0 +1,111 @@
+#!/bin/bash
+
+cd /root/.sync
+
+PATH=/usr/bin:/usr/sbin:/bin
+
+
+# sleep a random interval between 0 and WAIT seconds so all
+# servers do not flood sudoers host with connections at same time
+WAIT=1800
+
+SOURCE=<%= @sudo_ssh_user %>@<%= @sudo_ssh_host %>:<%= @sudo_ssh_source %>
+STAGED=./sudoers
+TARGET=/etc/sudoers
+KEY='/root/.ssh/sync_sudo'
+
+doFetch()
+{
+  source=$1
+  local=$2
+  key=$3
+  #rsync -avz -e ssh $source $local
+  scp -o "StrictHostKeyChecking no" -i $key -q $source $local
+  echo "#includedir /etc/sudoers.d" >> $local
+}
+
+isChanged()
+{
+  source=$1
+  target=$2
+  md5sum $source
+  sourcesum=`md5sum $source | cut -d ' ' -f1`
+  md5sum $target
+  targetsum=`md5sum $target | cut -d ' ' -f1`
+  test "$sourcesum" == "$targetsum"
+}
+
+waitInterval()
+{
+  slp=$((RANDOM % $WAIT))
+  #echo $slp
+  sleep $slp
+}
+
+isValid()
+{
+  source=$1
+  visudo -c -f $source
+}
+
+doInstall()
+{
+  staged=$1
+  target=$2
+
+  cp $target $target.safety
+
+  ls -l $staged $target
+  # install --backup --mode=440 --owner=root --group=root $staged $target
+  install --backup --suffix=.bak --mode=440 $staged $target
+  ls -l $staged $target
+  isValid $target
+  if [ $? -ne 0 ];
+  then
+    echo "ERROR: install failed.  Restoring prior copy of $target"
+    doRestore $target.safety $target
+  fi
+
+  rm -f $target.safety
+}
+
+doRestore()
+{
+  backup=$1
+  target=$2
+  key=$3
+  install --mode=440 $backup $target
+}
+
+waitInterval
+time=`date`
+echo $time
+
+doFetch $SOURCE $STAGED $KEY
+isChanged $STAGED $TARGET ];
+if [ $? -eq 0 ];
+then
+    echo "No changes applied to /etc/sudoers"
+    echo "______________________________________________"
+    exit
+else
+    isValid $STAGED
+    if [ $? -eq 0 ];
+    then
+        echo "Applying sudoers changes to /etc/sudoers  Changes will be logged"
+        doInstall $STAGED $TARGET
+    else
+        echo "ERROR: syntax of $STAGED not valid.  Not applying updates."
+    fi
+
+    isValid $TARGET
+    if [ $? -ne 0 ];
+    then
+        echo "ERROR: syntax of $TARGET not valid.  We should not be here."
+        echo "Attempting recovery"
+        doRestore $TARGET.bak $TARGET
+    fi
+fi
+
+echo "______________________________________________"
+echo ""

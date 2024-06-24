@@ -1,0 +1,73 @@
+name 'dpxn_production'
+description 'DPXN Production Chef Environment'
+
+cookbook 'apt', '~> 7.5.0'
+cookbook 'ark', '~> 5.1.1'
+cookbook 'aws', '~> 8.1.1'
+cookbook 'aws_cloudwatch', '~> 1.0.3'
+cookbook 'chocolatey', '~> 3.0.0'
+cookbook 'curl', '~> 2.0.4'
+cookbook 'dotnet', '~> 0.1.3'
+cookbook 'dpx_filesystem', '~> 0.1.1'
+cookbook 'dpx_utils', '~> 0.1.0'
+cookbook 'dpxn_check_order', '~> 0.1.0'
+cookbook 'dpxn_check_print', '~> 0.1.0'
+cookbook 'dpxn_cmp_mock', '~> 0.1.0'
+cookbook 'dpxn_cron', '~> 0.1.4'
+cookbook 'dpxn_dotnet', '~> 0.1.1'
+cookbook 'dpxn_portal_ui', '~> 0.1.0'
+cookbook 'dpxn_print_scan_ingestion', '~> 0.1.2'
+cookbook 'dpxn_print_scan_notifications', '~> 0.1.1'
+cookbook 'dpxn_print_scan_order_events', '~> 0.1.1'
+cookbook 'dpxn_redis', '~> 0.1.4'
+cookbook 'dpxn_resque', '~> 0.1.0'
+cookbook 'dpxn_service_layer_scan_ingestion', '~> 0.1.0'
+cookbook 'dynatrace_oneagent', '~> 1.1.1'
+cookbook 'ec_cloudwatch', '~> 1.1.2'
+cookbook 'ec_common', '~> 0.1.0'
+cookbook 'ec_prompt', '~> 1.2.2'
+cookbook 'ec_users', '~> 1.1.0'
+cookbook 'filesystem', '~> 3.0.5'
+cookbook 'line', '~> 2.8.1'
+cookbook 'lvm', '~> 5.2.2'
+cookbook 'mcafee', '~> 0.1.1'
+cookbook 'newrelic', '~> 2.41.0'
+cookbook 'nnt_change_tracker', '~> 0.1.3'
+cookbook 'nodejs', '~> 7.3.3'
+cookbook 'pen_ack_worker', '~> 0.1.2'
+cookbook 'pen_check_ingestion', '~> 0.1.2'
+cookbook 'pen_common', '~> 0.1.0'
+cookbook 'pen_delivery_batch_processor', '~> 0.1.2'
+cookbook 'pen_delivery_batcher', '~> 0.1.2'
+cookbook 'pen_scan_ingestion', '~> 0.1.3'
+cookbook 'poise', '~> 2.8.2'
+cookbook 'poise-archive', '~> 1.5.0'
+cookbook 'poise-languages', '~> 2.1.2'
+cookbook 'poise-python', '~> 1.7.0'
+cookbook 'pxh_api', '~> 0.1.4'
+cookbook 'pxh_nodejs', '~> 0.1.2'
+cookbook 'rapid7', '~> 0.1.2'
+cookbook 'redisio', '~> 4.3.2'
+cookbook 'role_pxh_common', '~> 0.1.17'
+cookbook 's3_file', '~> 2.8.5'
+cookbook 'selinux_policy', '~> 3.0.0'
+cookbook 'seven_zip', '~> 3.2.0'
+cookbook 'ulimit', '~> 1.1.1'
+cookbook 'users', '~> 5.4.0'
+cookbook 'windows', '~> 7.0.2'
+cookbook 'yum', '~> 6.1.1'
+cookbook 'dpxn_citi_ingestion', '~> 0.1.0'
+cookbook 'dpxn_delivery_manager', '~> 0.1.0'
+cookbook 'dpxn_preflight', '~> 0.1.1'
+
+override_attributes "vpc_env": "prod",
+                    "node_env": "production",
+                    "app_env": "production",
+                    "dynatrace_oneagent": {
+                      "host_group": "dpxn_app_production"
+                    },
+                    "dotnet": {
+                      "sdk_version": "6.0.122-0ubuntu1~22.04.1",
+                      "packages_source": "https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb",
+                      "sdk_release": "6.0"
+                    }

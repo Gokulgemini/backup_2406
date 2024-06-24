@@ -1,0 +1,624 @@
+ <!DOCTYPE html><html lang="en"><head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BMVLE5WY82"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-BMVLE5WY82');
+</script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>man Command in Linux/Unix with Examples - javatpoint</title><link rel="SHORTCUT ICON" href="https://static.javatpoint.com/images/favicon2.png" />
+<link rel="stylesheet" type="text/css" href="https://static.javatpoint.com/link.css?v=6.0" async /><link rel="dns-prefetch" href="https://clients1.google.com"><link rel="dns-prefetch" href="https://static.javatpoint.com"><link rel="dns-prefetch" href="https://googleads.g.doubleclick.net"><link rel="dns-prefetch" href="https://www.google.com"><link rel="dns-prefetch" href="https://feedify.net"><meta name="theme-color" content="#4CAF50" /><meta property="og:title" content="man Command in Linux/Unix with Examples - javatpoint" /><meta property="og:description" content="man Command in Linux/Unix with Examples for beginners and professionals with examples on files, directories, permission, backup, ls, man, pwd, cd, chmod, man, shell, pipes, filters, regex, vi etc.." />
+<meta name="keywords" content="linux, tutorial, beginners, professionals, introduction, example, command, file, directory, permission, backup, ls, man, pwd, cd, chmod, man, shell, pipes, filters, regex, vi" /><meta name="description" content="man Command in Linux/Unix with Examples for beginners and professionals with examples on files, directories, permission, backup, ls, man, pwd, cd, chmod, man, shell, pipes, filters, regex, vi etc.." /><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="canonical" href="https://www.javatpoint.com/linux-man" />
+<meta property="og:locale" content="en_US" /><meta property="og:type" content="article" /><meta name="twitter:title" property="og:title" content="man Command in Linux/Unix with Examples - javatpoint" /><meta name="twitter:description" property="og:description" content="man Command in Linux/Unix with Examples for beginners and professionals with examples on files, directories, permission, backup, ls, man, pwd, cd, chmod, man, shell, pipes, filters, regex, vi etc.." /><meta property="og:url" content="https://www.javatpoint.com/linux-man" /><meta property="og:site_name" content="www.javatpoint.com" /><meta name="twitter:card" content="summary" /><meta name="twitter:site" content="@pagejavatpoint" /><meta name="twitter:domain" content="www.javatpoint.com" /><meta name="twitter:creator" content="@pagejavatpoint" />
+<link href="https://www.javatpoint.com/manifest.json" rel="manifest">
+<script data-cfasync="false" type="text/javascript">
+(function(w, d) {
+	var s = d.createElement('script');
+	s.src = '//cdn.adpushup.com/37780/adpushup.js';
+	s.crossOrigin='anonymous'; 
+	s.type = 'text/javascript'; s.async = true;
+	(d.getElementsByTagName('head')[0] || d.getElementsByTagName('body')[0]).appendChild(s);
+	w.adpushup = w.adpushup || {que:[]};
+})(window, document);
+
+</script>
+<script data-cfasync="false" type="text/javascript">
+!function(e,t){var siteId = "37784";
+var r,a;let o=function(){var e=t.createElement("script");e.id="lzORaekbHNiuS",e["data-cfasync"]="false",e.src="//html-load.com/loader.min.js",e.charset="UTF-8",e.data="svmmawaaasa0njevas3ascattafa3aga6katacaseva05atkevarkka0asaga05qkacasa0kema0ayfevevasagara6ketacasngauefa03gatnafa3asa7cayattafa3a7as9e2",e.onload=function(){let e=!1,t=Math.random().toString(),r="html-load.com";window.addEventListener("message",r=>{r.data===t+"_as_res"&&(e=!0)}),window.setTimeout(()=>{if(!e){let t="Failed to load website properly since "+r+" is blocked. Please allow "+r;throw alert(t),fetch("https://error-report.com/report?type=loader_light&url="+btoa(location.href)+"&error="+btoa(t),{method:"POST"}).then(e=>e.text()).then(e=>{let r=document.createElement("iframe");r.src="https://info.error-report.com/modal?eventId="+e+"&error="+btoa(t),r.setAttribute("style","width: 100vw; height: 100vh; z-index: 2147483647; position: fixed; left: 0; top: 0;"),document.body.appendChild(r);let a=e=>{"close-error-report"===e.data&&(r.remove(),window.removeEventListener("message",a))};window.addEventListener("message",a)}).catch(e=>{confirm(navigator.language.toLowerCase().startsWith("ko")?"잘못된 애드블록 필터로 웹페이지 로딩에 실패하였습니다. 애드블록을 비활성화한 후 웹사이트를 이용해주세요. (자세한 내용은 '확인' 버튼을 눌러 확인해주세요)":"This page could not be loaded properly due to incorrect / bad filtering rule(s) of adblockers in use. Please disable all adblockers to continue using the website. (click OK if you'd like to learn more)")?location.href="https://info.error-report.com/modal?eventId=&error="+btoa(e.toString()):location.reload()}),Error(t)}},1e3),window.postMessage(t+"_as_req","*")},e.onerror=function(){let e=document.getElementById("lzORaekbHNiuS"),t=document.createElement("script");for(let r=0;r<e.attributes.length;r++)t.setAttribute(e.attributes[r].name,e.attributes[r].value);let a=new window.URL(e.src),o=["html-load.com","fb.html-load.com","content-loader.com","fb.content-loader.com"];if(void 0===window.as_retry&&(window.as_retry=0),window.as_retry>=o.length){let n="Failed to load website properly since "+o[0]+" is blocked. Please allow "+o[0];throw alert(n),fetch("https://error-report.com/report?type=loader_light&url="+btoa(location.href)+"&error="+btoa(n),{method:"POST"}).then(e=>e.text()).then(e=>{let t=document.createElement("iframe");t.src="https://info.error-report.com/modal?eventId="+e+"&error="+btoa(n),t.setAttribute("style","width: 100vw; height: 100vh; z-index: 2147483647; position: fixed; left: 0; top: 0;"),document.body.appendChild(t);let r=e=>{"close-error-report"===e.data&&(t.remove(),window.removeEventListener("message",r))};window.addEventListener("message",r)}).catch(e=>{confirm(navigator.language.toLowerCase().startsWith("ko")?"잘못된 애드블록 필터로 웹페이지 로딩에 실패하였습니다. 애드블록을 비활성화한 후 웹사이트를 이용해주세요. (자세한 내용은 '확인' 버튼을 눌러 확인해주세요)":"This page could not be loaded properly due to incorrect / bad filtering rule(s) of adblockers in use. Please disable all adblockers to continue using the website. (click OK if you'd like to learn more)")?location.href="https://info.error-report.com/modal?eventId=&error="+btoa(e.toString()):location.reload()}),Error(n)}a.host=o[window.as_retry++],t.setAttribute("src",a.href),t.setAttribute("as-async","true"),e.setAttribute("id",e.getAttribute("id")+"_"),e.parentNode.insertBefore(t,e),e.remove()},(t.getElementsByTagName("head")[0]||t.getElementsByTagName("body")[0]).appendChild(e)},n=function(r,a,o){var n=e.Image?new Image:t.createElement("img");n.onload=function(e){a&&"function"==typeof a&&a()},n.onerror=function(e){o&&"function"==typeof o&&o()},n.src=r};(r=t.createElement("script")).src="//delivery.adrecover.com/"+siteId+"/adRecover.js",r.type="text/javascript",r.async=!0,(t.getElementsByTagName("head")[0]||t.getElementsByTagName("body")[0]).appendChild(r),a=function(e){e||o()},n("//delivery.adrecover.com/block.jpg",function(){a(!1)},function(){n("//delivery.adrecover.com/allow.jpg",function(){a(!0)},function(){a(!1)})})}(window,document);
+</script>
+</head>
+<body onload="highlightlink()">
+
+<div id="page" style="margin:-8px;background-color:#f5f5f4;"><div id="container"> <div class="header"><table style="width:100%;margin-bottom:5px"> <tr> <td> <div style="clear:both;float:left;width:230px;margin-top:15px;margin-left:10px;margin-right:10px"> <a href="https://www.javatpoint.com"><img src="https://static.javatpoint.com/images/logo/jtp-logo3.png" alt="Javatpoint Logo" /></a> </div> <div style="float:left;width:60%;"><script> (function() { var cx = '005383125436438536544:y1edweedxwi'; var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true; gcse.src = 'https://cse.google.com/cse.js?cx=' + cx; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s); })();</script><gcse:search></gcse:search> </div> </td> </tr></table> </div>
+<div class="headermobile">
+<div style="margin-top:10px;padding:0px;text-align:left;">
+<span style="float:left"><input type="image" src="https://www.javatpoint.com/images/menuhome64.png" alt="Go To Top" onclick="showmenu()" /></span>
+<span style="float:left"><a href="https://www.javatpoint.com"><img src="https://static.javatpoint.com/images/logo/jtp-logo3.png" alt="Javatpoint Logo"></a></span>
+</div>
+<div style="margin:0px;padding:0px;clear:both">
+<script>
+  (function() {
+    var cx = '005383125436438536544:y1edweedxwi';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:search></gcse:search>
+
+</div>
+</div>
+<div id="link" style="clear:both;z-index:999"> <div class="ddsmoothmenu">
+<ul>
+<li><a href="https://www.javatpoint.com">Home</a></li>
+<li><a href="linux-tutorial" class="selected">Linux</a></li>
+<li><a href="c-programming-language-tutorial">C</a></li>
+<li><a href="java-tutorial">Java</a></li>
+<li><a href="python-tutorial">Python</a></li>
+<li><a href="shell-scripting-tutorial">Shell Scripting</a></li>
+<li><a href="sql-tutorial">SQL</a></li>
+<li><a href="html-tutorial">HTML</a></li>
+<li><a href="css-tutorial">CSS</a></li>
+<li><a href="javascript-tutorial">JavaScript</a></li>
+<li><a href="xml-tutorial">XML</a></li>
+<li><a href="ajax-tutorial">Ajax</a></li>
+<li><a href="android-tutorial">Android</a></li>
+<li><a href="free-java-projects">Projects</a></li>
+<li><a href="corejava-interview-questions">Interview Q</a></li>
+</ul>
+<br style="clear: left" />
+</div></div>
+<div class="mobilemenu" style="clear:both">
+
+</div>
+<div id="menu">
+<div class="leftmenu2">
+<a href="linux-tutorial"><span>Introduction to Linux</span></a>
+<a href="linux-directories"><span>Linux Directories</span></a>
+<a href="linux-files"><span>Linux Files</span></a>
+</div>
+<div class="leftmenu2">
+<h2 class="spanh2"><span class="spanh2">Linux Man Pages</span></h2>
+</div>
+<div class="leftmenu">
+<a href="linux-man">Linux man</a>
+<a href="linux-man-a">Linux man -a</a>
+<a href="linux-man-aw">Linux man -aw</a>
+<a href="linux-man-f">Linux man -f</a>
+<a href="linux-man-k">Linux man -k(apropos)</a>
+<a href="linux-man-whereis">Linux man whereis</a>
+</div>
+<div class="leftmenu2">
+<a href="linux-file-contents"><span>Linux File Contents</span></a>
+<a href="linux-file-hierarchy-system"><span>Linux File Hierarchy</span> </a>
+<a href="linux-filters"><span>12 Linux Filters</span></a>
+<a href="linux-input-output-redirection"><span>Linux I/O Redirection</span></a>
+<a href="linux-basic-unix-tools"><span>Linux Unix Tools</span></a>
+<a href="linux-regular-expression"><span>Linux Regex</span></a>
+<a href="linux-users"><span>Linux Users</span></a>
+<a href="linux-file-ownership"><span>Linux File Security</span></a>
+<a href="linux-shell-commands"><span>Linux Shell</span></a>
+<a href="linux-networking-commands"><span>Linux Networking</span></a>
+<a href="vi-editor"><span>vi editor</span></a>
+<a href="linux-system-admin-commands"><span>Linux System Admin</span></a>
+<a href="linux-commands"><span>100+ Linux Commands</span></a>
+<a href="linux-interview-questions"><span>Linux Interview</span></a>
+</div>
+<img src="https://www.javatpoint.com/wh.JPG" alt="JavaTpoint" />
+<br/>
+</div>
+</div>
+<div class="onlycontent">
+<div class="onlycontentad">
+</div>
+<div class="onlycontentinner">
+<div id="city">
+<table>
+<tr><td>
+<div id="bottomnextup">
+<a class="next" href="linux-man-a">next &rarr;</a>
+<a class="next" href="linux-route">&larr; prev</a>
+</div>
+<h1 class="h1">Linux Man Command</h1>
+<p>The "man" is a short term for manual page. In unix like operating systems such as linux, man is an
+interface to view the system's reference manual.</p>
+<p>A user can request to display a man page by simply typing man followed by a space and then
+argument. Here its argument can be a command, utility or function. A manual page associated with
+each of these arguments is displayed.</p>
+<p>If you will provide a section number in the command, then man will be directed to look into that
+section number of the manual and that section page will be displayed. And if not, then by default it
+will display the first page and you have to go through the entire sections in a pre-defined manner.</p>
+<h2 class="h2">man Command in Linux</h2>
+<h3 class="h3">Introduction to man</h3>
+<p>man is a built-in manual for utilizing Linux commands. It permits users to access the reference manual of a utility or a command to execute in the terminal. The man command contains the command description, examples, flags, applicable options, and other informative elements.</p>
+<p><strong>Prerequisites</strong></p>
+<ul class="points">
+<li>A root privilege account</li>
+<li>Command line access</li>
+<li>A machine with running Linux</li>
+</ul>
+<p>We'll read about section number in this tutorial.</p>
+<p><strong>Syntax of man:</strong></p>
+<div class="codeblock"><textarea name="code" class="html">
+man [option(s)] keyword(s)
+</textarea></div>
+<p>But generally [option(s)] are not used. Only keyword is written as an argument.</p>
+<p>For example,</p>
+<div class="codeblock"><textarea name="code" class="html">
+man ls
+</textarea></div>
+<p>This command will display all the information about <strong>'ls'</strong> command as shown in the screen shot.</p>
+<img src="https://static.javatpoint.com/linux/images/linux-man1.png" alt="Linux man1" />
+<p>By default, the man command searches for every available component of the manual and displays the initial match (even when the page is available in many sections). Giving a section number addresses the man command to search in a particular section.</p>
+<p>Nine manual sections are listed and explained as follows:</p>
+<ul class="points">
+<li><strong>General commands:</strong> It shows the commands that are utilized in the terminal.</li>
+<li><strong>Library functions:</strong> It shows the functions within the program libraries.</li>
+<li><strong>System calls:</strong> These show the functions that are provided by the kernel.</li>
+<li><strong>Special files:</strong> Devices are usually found in the /dev directory and corresponding drivers.</li>
+<li><strong>Games:</strong> It shows the command descriptions that show database quotes.<br/> File formats and conventions: It shows the file formats such as etc/passwd.</li>
+<li><strong>Miscellaneous:</strong> various descriptions, such as boot parameters, macro conventions and packages, and others.</li>
+<li><strong>Kernel routines:</strong> It displays information about the internal operations of the kernel.</li>
+<li><strong>System administration commands:</strong> Most commands are reserved for root.</li>
+</ul>
+<h2 class="h2">How to use the man command in Linux?</h2>
+<ul class="points">
+<li>Type the man command followed by the name of the Linux command which man page we wish to see on the terminal screen.</li>
+<li>The result is lengthy. We can use the scroll wheel of the mouse, the up and down keys, or the PgUp and PgDn keys to operate through it.</li>
+<li>We can click the H button to find the help section and a possible keystroke table to navigate the output after executing the man command.</li>
+<li>We can press the Q button to exit.</li>
+<li>The command output shows the available heading of the man page for the named command.</li>
+</ul>
+<p>The following are the possible heading list:</p>
+<ul class="points">
+<li><strong>Name:</strong> It shows the command's name.</li>
+<li><strong>Synopsis:</strong> It shows the syntax of the command.</li>
+<li><strong>Examples:</strong> In this heading, many examples demonstrate the command usage.</li>
+<li><strong>Configuration:</strong> It shows the configuration information for a device.</li>
+<li><strong>Defaults:</strong> They represent the command's default function and how they can be controlled.</li>
+<li><strong>Options:</strong> They show a list of flags and options that the command takes.</li>
+<li><strong>Exit status:</strong> It shows the list of exit status values possible for a command.</li>
+<li><strong>Files:</strong> They show a file list utilized by the command.</li>
+<li><strong>Environment:</strong> It displays the description and list of environment variables that influence the command.</li>
+<li><strong>See also:</strong> It represents the commands corresponding to the specified topic.</li>
+<li><strong>History:</strong> It shows the history of the command development.</li>
+<li><strong>Authors:</strong> This heading shows the person who wrote and managed the command.</li>
+<li><strong>Notes:</strong> This heading shows many notes, including dependencies, permission required, etc.</li>
+<li><strong>Bugs:</strong> This heading shows the known issues in the program version.</li>
+</ul>
+<p><strong><em>Important:</em></strong><em> Pages may include fewer or more headings relying on the contents of the man page.</em></p>
+<h2 class="h2">How Output is Displayed in Command Shell</h2>
+<p>man display its output through pager. A pager is a program that displays its output one screenfull at a time, means whole text doesn't appear at once and there is no option to scroll down the page.</p>
+<p>A colon at the bottom displays end of the on-screen page. To go to the next page you can use ?space bar' or 'f' and to go backward page you can use 'b'.</p>
+<p>To exit from the on-screen page use 'q' and you will be directed to the shell program. And for help press 'h'.</p>
+<h2 class="h2">Sections in the man Page:</h2>
+<p>man page is divided into different sections. Each section is divided based up on a particular topic.</p>
+<p>The man pages have a number written in the parentheses after the command. These number represent the section number. In the above picture, you can see LS(1) at the top, which shows that it is from section 1.</p>
+<p>As I stated earlier, if you will mention a particular section number then your man page will be directed to that section. Or else, you have to go through the whole sections in a pre-defined manner to go to your desired section.</p>
+<p><strong>Sections:</strong></p>
+<ol class="points">
+<li>Executable programs and shell commands</li>
+<li>System calls</li>
+<li>Library calls</li>
+<li>Special files</li>
+<li>File formats and conventions</li>
+<li>Games</li>
+<li>Miscellaneous</li>
+<li>System administration commands</li>
+<li>Kernel routines</li>
+</ol>
+<p>n. Tcl/Tk (a programming language)</p>
+<p><strong>Syntax for a particular section:</strong></p>
+<div class="codeblock"><textarea name="code" class="html">
+man section_number keyword
+</textarea></div>
+<p>For example</p>
+<div class="codeblock"><textarea name="code" class="html">
+man 2 passwd
+</textarea></div>
+<h2 class="h2">man Options</h2>
+<table class="alt">
+<tr><th>Commands</th><th>Function</th></tr>
+<tr><td><a href="linux-man-aw">man -aw</a></td><td>List all available sections of a command.</td></tr>
+<tr><td><a href="linux-man-a">man -a</a></td><td>To view all man pages of a command.</td></tr>
+<tr><td><a href="linux-man-k">sman -k (apropos)</a></td><td>Shows a list of results in man page containing a keyword match.</td></tr>
+<tr><td><a href="linux-man-f">-f, whatis</a></td><td>It displays description from manual page if available.</td></tr>
+<tr><td><a href="linux-man-whereis">whereis</a></td><td>Used to determine location of a man page</td></tr>
+<tr>
+<td>No Option</td>
+<td>It shows the entire command manual.</td>
+</tr>
+<tr>
+<td>Section-num</td>
+<td>As the manual is categorized into two or more sections, the section-num option is applied to show only a specific manual section.</td>
+</tr>
+<tr>
+<td>-w</td>
+<td>This option is used to return the location where the manual page of a specified command is available.</td>
+</tr>
+<tr>
+<td>-I</td>
+<td>This option takes the command case-sensitive.</td>
+</tr>
+<tr>
+<td>--default, -D</td>
+<td>Normally, this option is issued as the initial option and resets the behavior of the man command to its default.</td>
+</tr>
+<tr>
+<td>--debug, -d</td>
+<td>This option prints the debug details.</td>
+</tr>
+<tr>
+<td>--config-file=file, -C file</td>
+<td>We can use this file for user configuration instead of the default of ~/.manpath.</td>
+</tr>
+<tr>
+<td>--warnings[=warnings]</td>
+<td>This option activates warnings using groff. It may be used to implement sanity checks on the manual page's source text. The warnings option is a comma-isolated warning name list. Mac is the default if it isn't supplied.</td>
+</tr>
+<tr>
+<td>--global-apropos, -K</td>
+<td>It finds text on every manual page. It's a brute-force search. We should define a section to decrease the page numbers that require to be searched.</td>
+</tr>
+<tr>
+<td>--local-file, -l</td>
+<td>It enables local mode. It formats and shows the files of the local manual rather than finding them from the manual collection of the system.</td>
+</tr>
+<tr>
+<td>--location, --path, --where, -w</td>
+<td>This option does not show the manual page but prints the source nroff file's location that would be edited. It shows the location of every source file that is the same as the search criteria if the -a flag is also used.</td>
+</tr>
+</table>
+<hr/>
+<div class="nexttopicdiv">
+<span class="nexttopictext">Next Topic</span><span class="nexttopiclink"><a href="linux-man-a">Linux-man-a</a></span>
+</div>
+<br/><br/>
+<div id="bottomnext">
+<a style="float:left" class="next" href="linux-route">&larr; prev</a>
+<a style="float:right" class="next" href="linux-man-a">next &rarr;</a>
+</div>
+<br/><br/>
+</td></tr></table>
+</div>
+<hr class="hrhomebox" />
+<div><img class="lazyload" data-src="https://static.javatpoint.com/images/youtube-32.png" style="vertical-align:middle;" alt="Youtube" />
+<span class="h3" style="vertical-align:middle;font-size:22px"> For Videos Join Our Youtube Channel: <a href="https://bit.ly/2FOeX6S" target="_blank"> Join Now</a></span>
+</div>
+<hr class="hrhomebox" />
+<h3 class="h3">Feedback</h3>
+<ul class="points">
+<li>Send your Feedback to <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2f494a4a4b4d4e4c446f454e594e5b5f4046415b014c4042">[email&#160;protected]</a></li>
+</ul>
+<hr class="hrhomebox" />
+<h2 class="h2">Help Others, Please Share</h2>
+<a rel="nofollow" title="Facebook" target="_blank" href="https://www.facebook.com/sharer.php?u=https://www.javatpoint.com/linux-man"><img src="https://www.javatpoint.com/images/facebook32.png" alt="facebook" /></a>
+<a rel="nofollow" title="Twitter" target="_blank" href="https://twitter.com/share?url=https://www.javatpoint.com/linux-man"><img src="https://www.javatpoint.com/images/twitter32.png" alt="twitter" /></a>
+<a rel="nofollow" title="Pinterest" target="_blank" href="https://www.pinterest.com/pin/create/button/?url=https://www.javatpoint.com/linux-man"><img src="https://www.javatpoint.com/images/pinterest32.png" alt="pinterest" /></a>
+
+<hr class="hrhomebox" />
+
+<fieldset class="gra1">
+<h2 class="h3">Learn Latest Tutorials</h2>
+<div class="firsthomecontent">
+<a href="https://www.javatpoint.com/splunk">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/splunk.png" alt="Splunk tutorial" />
+<p>Splunk</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/spss">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/spss.png" alt="SPSS tutorial" />
+<p>SPSS</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/swagger">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/swagger.png" alt="Swagger tutorial" />
+<p>Swagger</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/t-sql">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/transact-sql.png" alt="T-SQL tutorial" />
+<p>Transact-SQL</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/tumblr">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/tumblr.png" alt="Tumblr tutorial" />
+<p>Tumblr</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/reactjs-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/react.png" alt="React tutorial" />
+<p>ReactJS</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/regex">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/regex.png" alt="Regex tutorial" />
+<p>Regex</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/reinforcement-learning">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/react.png" alt="Reinforcement learning tutorial" />
+<p>Reinforcement Learning</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/r-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/r-programming.png" alt="R Programming tutorial" />
+<p>R Programming</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/rxjs">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/rxjs.png" alt="RxJS tutorial" />
+<p>RxJS</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/react-native-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/react-native.png" alt="React Native tutorial" />
+<p>React Native</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/python-design-pattern">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/python-design-patterns.png" alt="Python Design Patterns" />
+<p>Python Design Patterns</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/python-pillow">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/python-pillow.png" alt="Python Pillow tutorial" />
+<p>Python Pillow</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/python-turtle-programming">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/python-turtle.png" alt="Python Turtle tutorial" />
+<p>Python Turtle</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/keras">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/keras.png" alt="Keras tutorial" />
+<p>Keras</p>
+</div>
+</a>
+</div>
+</fieldset>
+<hr class="hrhomebox" />
+
+<fieldset class="gra1">
+<h2 class="h3">Preparation</h2>
+<div class="firsthomecontent">
+<a href="https://www.javatpoint.com/aptitude/quantitative">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/aptitude/images/quantitative-aptitude-home.png" alt="Aptitude" />
+<p>Aptitude</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/reasoning">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/reasoning/images/reasoning-home.png" alt="Logical Reasoning" />
+<p>Reasoning</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/verbal-ability">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/verbal-ability/images/verbal-ability-home.png" alt="Verbal Ability" />
+<p>Verbal Ability</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/interview-questions-and-answers">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/logo/interviewhome.png" alt="Interview Questions" />
+<p>Interview Questions</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/company-interview-questions-and-recruitment-process">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/interview/images/company-home.jpeg" alt="Company Interview Questions" />
+<p>Company Questions</p>
+</div>
+</a>
+</div>
+</fieldset>
+<hr class="hrhomebox" />
+
+<fieldset class="gra1">
+<h2 class="h3">Trending Technologies</h2>
+<div class="firsthomecontent">
+<a href="https://www.javatpoint.com/artificial-intelligence-ai">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/artificial-intelligence.png" alt="Artificial Intelligence" />
+<p>Artificial Intelligence</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/aws-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/amazon-web-services.png" alt="AWS Tutorial" />
+<p>AWS</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/selenium-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/selenium.png" alt="Selenium tutorial" />
+<p>Selenium</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/cloud-computing">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/cloud-computing.png" alt="Cloud Computing" />
+<p>Cloud Computing</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/hadoop-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/hadoop.png" alt="Hadoop tutorial" />
+<p>Hadoop</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/reactjs-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/reactjs.png" alt="ReactJS Tutorial" />
+<p>ReactJS</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/data-science">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/data-science.png" alt="Data Science Tutorial" />
+<p>Data Science</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/angular-7-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/angular7.png" alt="Angular 7 Tutorial" />
+<p>Angular 7</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/blockchain-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/blockchain.png" alt="Blockchain Tutorial" />
+<p>Blockchain</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/git">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/git.png" alt="Git Tutorial" />
+<p>Git</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/machine-learning">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/machine-learning.png" alt="Machine Learning Tutorial" />
+<p>Machine Learning</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/devops">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/devops.png" alt="DevOps Tutorial" />
+<p>DevOps</p>
+</div>
+</a>
+</div>
+</fieldset>
+<hr class="hrhomebox" />
+
+<fieldset class="gra1">
+<h2 class="h3">B.Tech / MCA</h2>
+<div class="firsthomecontent">
+<a href="https://www.javatpoint.com/dbms-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/dbms.png" alt="DBMS tutorial" />
+<p>DBMS</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/data-structure-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/data-structures.png" alt="Data Structures tutorial" />
+<p>Data Structures</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/daa-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/daa.png" alt="DAA tutorial" />
+<p>DAA</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/operating-system">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/operating-system.png" alt="Operating System" />
+<p>Operating System</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/computer-network-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/computer-network.png" alt="Computer Network tutorial" />
+<p>Computer Network</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/compiler-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/compiler-design.png" alt="Compiler Design tutorial" />
+<p>Compiler Design</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/computer-organization-and-architecture-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/computer-organization.png" alt="Computer Organization and Architecture" />
+<p>Computer Organization</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/discrete-mathematics-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/discrete-mathematics.png" alt="Discrete Mathematics Tutorial" />
+<p>Discrete Mathematics</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/ethical-hacking">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/ethical-hacking.png" alt="Ethical Hacking" />
+<p>Ethical Hacking</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/computer-graphics-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/computer-graphics.png" alt="Computer Graphics Tutorial" />
+<p>Computer Graphics</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/software-engineering">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/software-engineering.png" alt="Software Engineering " />
+<p>Software Engineering</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/html-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/web-technology.png" alt="html tutorial" />
+<p>Web Technology</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/cyber-security-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/cyber-security.png" alt="Cyber Security tutorial" />
+<p>Cyber Security</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/automata-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/automata.png" alt="Automata Tutorial" />
+<p>Automata</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/c-programming-language-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/c-programming.png" alt="C Language tutorial" />
+<p>C Programming</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/cpp-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/cpp.png" alt="C++ tutorial" />
+<p>C++</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/java-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/new/core-java.png" alt="Java tutorial" />
+<p>Java</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/net-framework">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/dot-net.png" alt=".Net Framework tutorial" />
+<p>.Net</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/python-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/python.png" alt="Python tutorial" />
+<p>Python</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/programs-list">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/programs.png" alt="List of Programs" />
+<p>Programs</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/control-system-tutorial">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/control-system.png" alt="Control Systems tutorial" />
+<p>Control System</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/data-mining">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/data-mining.png" alt="Data Mining Tutorial" />
+<p>Data Mining</p>
+</div>
+</a>
+<a href="https://www.javatpoint.com/data-warehouse">
+<div class="homecontent"><img class="lazyload" data-src="https://static.javatpoint.com/images/homeicon/data-warehouse.png" alt="Data Warehouse Tutorial" />
+<p>Data Warehouse</p>
+</div>
+</a>
+</div>
+</fieldset>
+</div>
+<br><br/><div class="mobilemenu" style="clear:both">
+</div></div>
+<div id="right">
+<br/><br/>
+</div>
+<div class="right1024" style="float:left;margin-left:10px;margin-top:120px;">
+
+</div>
+<br/>
+<div id="footer" style="clear:both;width:100%">
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>var _gaq=_gaq || []; _gaq.push(['_setAccount', 'UA-24880427-1']); _gaq.push(['_trackPageview']); (function(){var ga=document.createElement('script'); ga.type='text/javascript'; ga.async=true; ga.src=('https:'==document.location.protocol ? 'https://ssl' : 'https://www') + '.google-analytics.com/ga.js'; var s=document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();</script><div style="margin-top:5px;text-align:center"> <sup style="font:16px arial;">Like/Subscribe us for latest updates or newsletter </sup> <a target="_blank" rel="nofollow noopener" href="https://feeds.feedburner.com/javatpointsonoo"><img src="https://static.javatpoint.com/images/social/rss1.png" alt="RSS Feed" /></a> <a target="_blank" rel="nofollow noopener" href="https://feedburner.google.com/fb/a/mailverify?uri=javatpointsonoo"><img src="https://static.javatpoint.com/images/social/mail1.png" alt="Subscribe to Get Email Alerts" /></a> <a rel="nofollow noopener" target="_blank" href="https://www.facebook.com/javatpoint"><img src="https://static.javatpoint.com/images/social/facebook1.jpg" alt="Facebook Page" /></a> <a target="_blank noopener" rel="nofollow" href="https://twitter.com/pagejavatpoint"><img src="https://static.javatpoint.com/images/social/twitter1.png" alt="Twitter Page" /></a> <a target="_blank" rel="nofollow noopener" href="https://www.youtube.com/channel/UCUnYvQVCrJoFWZhKK3O2xLg"><img src="https://static.javatpoint.com/images/youtube32.png" alt="YouTube" /></a> <a target="_blank" rel="nofollow noopener" href="https://javatpoint.blogspot.com"><img src="https://static.javatpoint.com/images/social/blog.png" alt="Blog Page" /></a> </div><footer class="footer1"><div class="column4"><h3>Learn Tutorials</h3><a href="https://www.javatpoint.com/java-tutorial">Learn Java</a><a href="https://www.javatpoint.com/data-structure-tutorial">Learn Data Structures</a><a href="https://www.javatpoint.com/c-programming-language-tutorial">Learn C Programming</a><a href="https://www.javatpoint.com/cpp-tutorial">Learn C++ Tutorial</a><a href="https://www.javatpoint.com/c-sharp-tutorial">Learn C# Tutorial</a><a href="https://www.javatpoint.com/php-tutorial">Learn PHP Tutorial</a><a href="https://www.javatpoint.com/html-tutorial">Learn HTML Tutorial</a><a href="https://www.javatpoint.com/javascript-tutorial">Learn JavaScript Tutorial</a><a href="https://www.javatpoint.com/jquery-tutorial">Learn jQuery Tutorial</a><a href="https://www.javatpoint.com/spring-tutorial">Learn Spring Tutorial</a></div><div class="column4"><h3>Interview Questions</h3><a href="corejava-interview-questions">Java Interview Questions</a><a href="sql-interview-questions">SQL Interview Questions</a><a href="python-interview-questions">Python Interview Questions</a><a href="javascript-interview-questions">JavaScript Interview Questions</a><a href="top-angular-interview-questions">Angular Interview Questions</a><a href="selenium-interview-questions">Selenium Interview Questions</a><a href="spring-boot-interview-questions">Spring Boot Interview Questions</a><a href="job-interview-questions">HR Interview Questions</a><a href="cpp-interview-questions">C++ Interview Questions</a><a href="data-structure-interview-questions">Data Structure Interview Questions</a></div><div class="column4"><h3>About</h3><p>This website is developed to help students on various technologies such as Artificial Intelligence, Machine Learning, C, C++, Python, Java, PHP, HTML, CSS, JavaScript, jQuery, ReactJS, Node.js, AngularJS, Bootstrap, XML, SQL, PL/SQL, MySQL etc. </p><p>This website provides tutorials with examples, code snippets, and practical insights, making it suitable for both beginners and experienced developers.</p><p>There are also many interview questions which will help students to get placed in the companies.</p></div><div class="column4"><h3>Contact</h3><a href="https://www.javatpoint.com/contact-us">Contact Us</a>  <a href="https://www.javatpoint.com/privacy-policy">Privacy Policy</a><a href="https://www.javatpoint.com/sitemap.xml">Sitemap</a><br><a href="https://www.javatpoint.com/sonoo-jaiswal">About Me</a></div></footer><footer class="footer2"><p>&copy; Copyright 2011-2021 www.javatpoint.com. All rights reserved. Developed by Tpoint Tech.</p></footer><div id="bot-root"></div><script> (function() { var e = document.createElement('script'); e.src = 'https://app.pushbrothers.com/js/notification-bot.js?cnfg=a3cc04a1-8471-450e-b01e-c9d752b16eb0'; document.getElementById('bot-root').appendChild(e);}());</script>
+</div>
+
+</div></div>
+<script src="https://static.javatpoint.com/js/shcoreandbrush.js"></script><script> dp.SyntaxHighlighter.HighlightAll('code'); </script>
+<script src="https://static.javatpoint.com/lazysizes.min.js?v=5.8" async></script>
+</body> </html> 

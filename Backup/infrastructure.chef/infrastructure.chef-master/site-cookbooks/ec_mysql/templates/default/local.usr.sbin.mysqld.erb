@@ -1,0 +1,16 @@
+# Allow data dir access
+<%= @db_data_mountpoint %>/ r,
+<%= @db_data_mountpoint %>/** rwk,
+
+<%= @db_tmpfs_mountpoint %>/ r,
+<%= @db_tmpfs_mountpoint %>/** rwk,
+
+<%= @db_backup_mountpoint %>/ r,
+<%= @db_backup_mountpoint %>/** rwk,
+
+# These are required in order to start mysql with our configruation
+/proc/*/status r,
+/sys/devices/system/node/ r,
+/sys/devices/system/node/node*/meminfo r,
+/sys/devices/system/node/*/* r,
+/sys/devices/system/node/* r,

@@ -1,0 +1,6 @@
+##### Managed By Chef ########
+#
+check process netowl-matcher
+with pidfile <%= @pid %>
+start program = "<%= @startup %>"
+stop program = "<%= @shutdown %>"

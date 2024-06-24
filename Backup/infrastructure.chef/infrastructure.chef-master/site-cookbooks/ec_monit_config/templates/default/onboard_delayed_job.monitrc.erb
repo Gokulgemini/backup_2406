@@ -1,0 +1,7 @@
+check process <%= @app_name %>_delayed_job
+  with pidfile /data/<%= @app_name %>/shared/tmp/pids/delayed_job.pid
+  start program = "/bin/bash -c 'cd <%= @app_path %> && /usr/bin/env RAILS_ENV=<%= @rails_env %> <%= @app_path %><%= @delayed_job_start %> start'"
+    as UID deploy
+    as GID deploy
+  stop program = "/bin/bash -c '/bin/kill `cat /data/<%= @app_name %>/shared/tmp/pids/delayed_job.pid`'"
+  group <%= @app_name %>_delayed_job

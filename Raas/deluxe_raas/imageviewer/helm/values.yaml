@@ -1,0 +1,9 @@
+ImageRegistry:  docker-itms.artifactory.deluxe.com
+ImageViewerAPIReplicaCount: 2
+ImageViewerAPIServicePort: 5000
+
+ItmsApiIngressUrl: intiaws.iswdmz.itms
+
+COMPlus:
+  gcServer: 1
+  gcConcurrent: 0

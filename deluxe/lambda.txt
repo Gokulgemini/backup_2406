@@ -1,0 +1,71 @@
+module "lambda_function" {
+  source   = "terraform-aws-modules/lambda/aws"
+  for_each = { for lambda in var.lambdas : lambda.identifier => lambda }
+
+  function_name       = each.value.name
+  description         = each.value.description
+  handler             = each.value.handler
+  runtime             = each.value.runtime
+  kms_key_arn         = each.value.kms_key_arn
+  s3_existing_package = each.value.s3_existing_package
+
+  lambda_role           = try(each.value.iam_role_arn, null)
+  memory_size           = try(each.value.memory_size, 512)
+  timeout               = try(each.value.timeout, 3)
+  environment_variables = try(each.value.environment_variables, {})
+  allowed_triggers      = try(each.value.allowed_triggers, {})
+  event_source_mapping  = try(each.value.event_source_mapping, [])
+  policy_statements     = try(each.value.policy_statements, {})
+
+  create_role                = each.value.iam_role_arn != null ? false : true
+  create_package             = false
+  publish                    = true
+  create_lambda_function_url = true
+
+  authorization_type = "AWS_IAM"
+  cors = {
+    allow_credentials = true
+    allow_origins     = ["*"]
+    allow_methods     = ["*"]
+    allow_headers     = ["date", "keep-alive"]
+    expose_headers    = ["keep-alive", "date"]
+    max_age           = 86400
+  }
+
+  vpc_security_group_ids = try(each.value.vpc_security_group_ids, [""])
+  vpc_subnet_ids         = try(each.value.vpc_subnet_ids, "")
+  attach_network_policy = each.value.vpc_subnet_ids != "" ? true : false
+
+  tags = var.tags
+}
+--------------------------------------------------
+output "lambda_function_info" {
+  description = "The required details of the lambda functions"
+  value       = module.lambda_function
+}
+-------------------------------------------------
+variable "lambdas" {
+  type        = list(any)
+  description = "Lambda functions to be created"
+}
+variable "tags" {
+  description = "A map of tags to assign to the resource. If configured with a provider default_tags"
+  type        = map(string)
+  default     = {}
+}
+------------------------------------------------------
+main.tf
+terraform {
+  # Live modules pin exact provider version; generic modules let consumers pin the version.
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">= 4.9"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = ">= 2.0"
+    }
+  }
+}
+--------------------------------------------------------

@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: imagevault
+spec:
+  replicas: {{ .Values.ImageVaultReplicaCount }}
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: imagevault
+  template:
+    metadata:
+      labels:
+        app: imagevault
+    spec:
+      securityContext:
+        runAsUser: 10000
+        runAsGroup: 10000
+      containers:
+      - name: imagevault
+        image: {{ .Values.ImageRegistry }}/rdm/service/imagevault:{{ .Chart.Version }}
+        env:
+        - name: COMPlus_gcServer
+          value: "{{ .Values.COMPlus.gcServer }}"
+        - name: COMPlus_gcConcurrent
+          value: "{{ .Values.COMPlus.gcConcurrent }}"
+        volumeMounts:
+        - mountPath: /var/run/secrets/vault-token
+          name: vault-token
+        ports:
+        - containerPort: 50055
+      volumes:
+      - name: vault-token
+        projected:
+          sources:
+          - serviceAccountToken:
+              path: vault-token
+              expirationSeconds: 7200
+              audience: vault

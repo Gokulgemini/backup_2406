@@ -1,0 +1,8 @@
+{
+  "id": "itimadm",
+  "uid": 1001,
+  "groups": [ "itimadm" ],
+  "password": "$1$v8c8ZHFB$g6MXPacmLPYsFO2mZUyIq1",
+  "shell": "\/bin\/bash",
+  "action": "create"
+}

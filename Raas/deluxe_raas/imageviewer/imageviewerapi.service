@@ -1,0 +1,15 @@
+[Unit]
+Description=RDM.Webservice.ImageViewerAPI
+
+[Service]
+WorkingDirectory=/var/aspnetcore/RDM.Webservice.ImageViewerAPI
+ExecStart=/usr/bin/dotnet /var/aspnetcore/RDM.Webservice.ImageViewerAPI/RDM.Webservice.ImageViewerAPI.dll
+Restart=always
+RestartSec=10 # Restart service after 10 seconds if dotnet service crashes
+SyslogIdentifier=RDM.Webservice.ImageViewerAPI
+User=www-data
+Environment=ASPNETCORE_ENVIRONMENT=Development
+Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
+
+[Install]
+WantedBy=multi-user.target

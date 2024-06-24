@@ -1,0 +1,91 @@
+${jsonencode({
+  Version = "2012-10-17",
+  Statement = [
+    {
+      "Action": [
+        "sqs:DeleteMessage",
+        "sqs:ReceiveMessage",
+        "sqs:SendMessage"
+      ],
+      "Effect": "Allow",
+      "Resource": "${sqs-dpxn-ingestion-queue-arn}"
+    },{
+      "Sid": "AllowCommercialTopicPublish",
+      "Action": [
+        "sns:Publish",
+        "sns:SetTopicAttributes"
+      ],
+      "Effect": "Allow",
+      "Resource": "${sns-dpxn-commercial-route-topic-arn}"
+    },
+    {
+      "Action": [
+        "s3:GetObject",
+        "s3:GetObjectAcl",
+        "s3:ListBucket",
+        "s3:ListObjectsV2"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "${s3-dpxn-csv-ingestion-bucket-arn}/*",
+        "${s3-dpxn-csv-ingestion-bucket-arn}"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:*",
+        "kms:Decrypt"
+      ],
+      "Resource": [
+        "${s3-infra-bucket-arn}/*",
+        "${s3-infra-bucket-arn}/"
+      ]
+    },{
+      "Action": [
+        "kms:Encrypt",
+        "kms:Decrypt",
+        "kms:GenerateDataKey",
+        "kms:DescribeKey",
+        "kms:ReEncryptFrom",
+        "kms:ReEncryptTo"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "${kms-db-key-arn}",
+        "${kms-non-db-key-arn}",
+        "${kms-dpxn-ingestion-arn}",
+        "${kms-dpxn-commercial-router}"
+        ]
+    },
+    {
+      "Sid": "AccessForCloudwatch",
+      "Effect": "Allow",
+      "Action": [
+        "cloudwatch:ListMetrics",
+        "cloudwatch:PutMetricData",
+        "cloudwatch:GetMetricStatistics",
+        "ec2:DescribeInstances"
+      ],
+      "Resource": [
+        "*"
+      ]
+    },
+    {
+      "Sid": "AccessForCloudwatchLogs",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeInstances",
+        "ec2:DescribeTags",
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:DescribeLogStreams",
+        "logs:PutLogEvents"
+      ],
+      "Resource": [
+        "*"
+      ]
+    }
+]
+}
+)}

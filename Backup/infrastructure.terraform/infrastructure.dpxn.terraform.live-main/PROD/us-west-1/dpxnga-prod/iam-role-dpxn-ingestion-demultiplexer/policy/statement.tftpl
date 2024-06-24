@@ -1,0 +1,82 @@
+${jsonencode({
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sns:publish",
+      "Effect": "Allow",
+      "Resource": [
+        "${sns-dpxn-payment-events-topic-arn}"
+        ]
+    },
+    {
+      "Action": [
+        "sqs:DeleteMessage",
+        "sqs:ReceiveMessage",
+        "sqs:SendMessage"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "${sqs-dpxn-ingestion-demultiplexer-queue-arn}"
+      ]
+    },
+    {
+      "Action": [
+        "s3:GetObject",
+        "s3:GetObjectAcl",
+        "s3:PutObject",
+        "s3:PutObjectAcl",
+        "s3:ListBucket"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "${s3-dpxn-payment-router-input-bucket-arn}/*",
+        "${s3-dpxn-payment-router-input-bucket-arn}",
+        "${s3-dpxn-ingestion-demultiplexer-bucket-arn}/*",
+        "${s3-dpxn-ingestion-demultiplexer-bucket-arn}"
+      ]
+    },
+     {
+      "Action": [
+        "kms:Encrypt",
+        "kms:Decrypt",
+        "kms:GenerateDataKey",
+        "kms:DescribeKey",
+        "kms:ReEncryptFrom",
+        "kms:ReEncryptTo"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "${kms-dpxn-payment-router-key-arn}",
+        "${kms-dpxn-ingestion-demultiplexer-key-arn}",
+        "${kms-dpxn-payment-events-key-arn}"
+      ]
+    },
+    {
+      "Sid": "AccessForCloudwatch",
+      "Effect": "Allow",
+      "Action": [
+        "cloudwatch:ListMetrics",
+        "cloudwatch:PutMetricData",
+        "cloudwatch:GetMetricStatistics",
+        "ec2:DescribeInstances"
+      ],
+      "Resource": [
+        "*"
+      ]
+    },
+    {
+      "Sid": "AccessForCloudwatchLogs",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeInstances",
+        "ec2:DescribeTags",
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:DescribeLogStreams",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "${logstream-dpxn-ingestion-demultiplexer-cloudwatch-log-group-arn}"
+    }
+  ]
+})
+}

@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Copyright>RDM Corporation</Copyright>
+    <AssemblyTitle>RDM.Data.ImageVault.SqlServer.Tests</AssemblyTitle>
+    <TargetFramework>net6.0</TargetFramework>
+    <AssemblyName>RDM.Data.ImageVault.SqlServer.Tests</AssemblyName>
+    <PackageId>RDM.Data.ImageVault.SqlServer.Tests</PackageId>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\RDM.Data.ImageVault.SqlServer\RDM.Data.ImageVault.SqlServer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0" />
+    <PackageReference Include="xunit" Version="2.4.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="NSubstitute" Version="4.4.0" />
+    <PackageReference Include="XunitXml.TestLogger" Version="3.0.70" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <!-- Mark the project as being a test project -->
+    <SonarQubeTestProject>true</SonarQubeTestProject>
+  </PropertyGroup>
+
+</Project>

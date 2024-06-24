@@ -1,0 +1,224 @@
+#!groovy
+
+@Library('Shared-Pipelines') _
+
+import org.jenkinsci.plugins.pipeline.utility.steps.fs.FileWrapper
+
+// This node's stages must be run on a worker tagged with all of the following: DotNetCore, Powershell4, Git, Nuget
+node('DotNetCore && Powershell4 && Git && Nuget && Octo')
+{
+    Map<String, String> versions = new HashMap<String, String>();  // This will hold the version number once its been updated, since its required for multiple steps
+
+    String[] deployProjects = ["RDM.Service.ImageVault"]
+    String[] publishProjects = ["RDM.Model.ImageVault", "RDM.Messaging.ImageVault", "RDM.Client.ImageVault", "RDM.GRPC.ImageVault"]
+
+    def buildNumber = env.BUILD_NUMBER
+
+    /*
+     * Though the script is checked in, when jenkins checks out the code to gain access to this script it checks it out into a special temporary directory
+     * to load this file into its internal processes from. Therefore the first step of the pipeline has to be to checkout the code into the allocated workspace
+     */
+    stage('Checkout')
+    {
+        checkout scm
+    }
+
+        stage('Build')
+    {
+        def projectFilesToUpdate = findFiles(glob: "src/**/*.csproj")
+        versions = dotnetcore.updateBuildNumber(projectFilesToUpdate, buildNumber)
+
+        def solutionFile = findFiles(glob: "*.sln")
+        dotnetcore.build(solutionFile[0].path)
+    }
+
+    stage('Test')
+    {
+        def testProjects = findFiles(glob: "tests/**/*.csproj")
+
+        for (int i=0; i!=testProjects.length; i++)
+        {
+            def path = testProjects[i].path
+            def output = "tests/results${i}/TestResults.xml"
+            dotnetcore.executeTests(path, output)
+        }
+    }
+
+    stage('PublishTest')
+    {
+        resultFilePattern = "**/TestResults.xml"
+        dotnetcore.publishTest(resultFilePattern)
+    }
+
+    stage('Publish&Pack')
+    {
+        dotnetcore.dotnetPack(publishProjects)
+        dotnetcore.octopusPack(deployProjects, versions)
+    }
+
+    stage('Nuget')
+    {
+        def deployPackagesToUpload = []
+        for (int j=0; j!=deployProjects.length; j++)
+        {
+            def projectName = deployProjects[j];
+            def files = findFiles(glob: "src/${projectName}/package/*.nupkg")
+
+            for (def file : files)
+            {
+                deployPackagesToUpload.add(file.path)
+            }
+        }
+
+        def publishPackagesToUpload = []
+        for (int j=0; j!=publishProjects.length; j++)
+        {
+            def projectName = publishProjects[j];
+            def files = findFiles(glob: "src/${projectName}/**/*.symbols.nupkg")
+
+            for (def file : files)
+            {
+                publishPackagesToUpload.add(file.path)
+            }
+        }
+
+        dotnetcore.nuget(deployPackagesToUpload, publishPackagesToUpload)
+
+        // Upload the files to artifacts
+        rtUpload(
+          serverId: "artifacts-deluxe-com",
+          spec:
+            """
+            {
+              "files":
+              [
+                {
+                  "pattern": "src/.*/package/((RDM.[^0-9]+)\\.([0-9]+\\.[0-9]+\\.[0-9]+)(?:\\.symbols)?\\.nupkg)",
+                  "target": "deluxe.itms-local/RDM/{2}/{3}/{1}",
+                  "regexp": "true"
+                }
+              ]
+            }
+            """,
+          failNoOp: true,
+          buildName: "RDM.Service.ImageVault",
+          buildNumber: "1.4.${env.BUILD_NUMBER}"
+        )
+
+        rtPublishBuildInfo (
+          serverId: "artifacts-deluxe-com",
+          buildName: "RDM.Service.ImageVault",
+          buildNumber: "1.4.${env.BUILD_NUMBER}"
+        )
+    }
+
+    stage('Check Refs')
+    {
+        def projectFilesToCheck = findFiles(glob: "src/**/*.csproj")
+
+        for (int i=0; i!=projectFilesToCheck.length; i++)
+        {
+            // Read the file
+            def content = readFile(projectFilesToCheck[i].path)
+
+            // Use RegEx to find the version prefix
+            def packageReferenceNode = content.findAll(/\<PackageReference (.*?) \/>/)
+            for (int j=0; j!=packageReferenceNode.size(); j++)
+            {
+                def packageName = packageReferenceNode[j].find(/Include="(.*?)"/)
+                packageName = packageName.replaceAll("Include=", "")
+                packageName = packageName.replaceAll("\"", "")
+
+                def version = packageReferenceNode[j].find(/Version="(.*?)"/)
+                version = version.replaceAll("Version=", "")
+                version = version.replaceAll("\"", "")
+
+                def packageFound = proget.checkLatestPackage(packageName, "default", version)
+                if(!packageFound){
+                    currentBuild.result = 'UNSTABLE'
+                    return
+                }
+            }
+        }
+    }
+}
+
+node('docker')
+{
+    def imageName = "rdm/service/imagevault"
+
+    stage('Checkout Docker')
+    {
+       checkout scm
+    }
+
+    stage ("Docker Image")
+    {
+      docker.withRegistry("https://docker-itms.artifacts.deluxe.com", 'artifactory-cloud')
+      {
+        def image = docker.build("${imageName}:1.4.${env.BUILD_NUMBER}")
+        image.push()
+        image.push("latest")
+      }
+    }
+
+    stage("Helm chart")
+    {
+      dir("helmOutput")
+      {
+        // Delete the directory to make sure we don't have any old packages
+        // floating around
+        deleteDir();
+      }
+      dir("helmOutput")
+      {
+        // Lint the chart
+        sh("helm lint ../helm")
+
+        // Package the chart
+        sh("helm package --version 1.4.${env.BUILD_NUMBER} --app-version 1.4.${env.BUILD_NUMBER} ../helm")
+
+        // Upload the files to artifacts
+        rtUpload(
+          serverId: "artifacts-deluxe-com",
+          spec:
+            """
+            {
+              "files":
+              [
+                {
+                  "pattern": "((RDM.[^-]+)-([0-9]+\\.[0-9]+\\.[0-9]+)?\\.tgz)",
+                  "target": "deluxe.itms.helm-local/RDM/{2}/{3}/{1}",
+                  "regexp": "true"
+                }
+              ]
+            }
+            """,
+          failNoOp: true,
+          buildName: "RDM.Service.ImageVault",
+          buildNumber: "1.4.${env.BUILD_NUMBER}"
+        )
+      }
+    }
+}
+
+node('ssh')
+{
+    def repoName = "imagevault"
+    def solutionVersion = "1.4.${env.BUILD_NUMBER}"
+
+    stage ("Checkout SSH")
+    {
+        checkout scm
+    }
+
+    stage('Ticket Tag')
+    {
+        tagticket.updateTicket(solutionVersion, repoName)
+    }
+
+    stage('Tag')
+    {
+        sourcecontrol.updateGitTags(repoName, solutionVersion)
+    }
+}

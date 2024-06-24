@@ -1,0 +1,32 @@
+${jsonencode({
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AccessForCloudwatch",
+      "Effect": "Allow",
+      "Action": [
+        "cloudwatch:ListMetrics",
+        "cloudwatch:PutMetricData",
+        "cloudwatch:GetMetricStatistics",
+        "ec2:DescribeInstances"
+      ],
+      "Resource": [
+        "*"
+      ]
+    },
+    {
+      "Sid": "AccessForCloudwatchLogs",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeInstances",
+        "ec2:DescribeTags",
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:DescribeLogStreams",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "${logstream-dpxn-aim-api-cloudwatch-log-group-arn}"
+    }
+  ]
+})
+}

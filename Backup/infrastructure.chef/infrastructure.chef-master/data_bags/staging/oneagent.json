@@ -1,0 +1,10 @@
+{
+  "id": "oneagent",
+  "configs": {
+    "encrypted_data": "OrN5Re/YG3fXRE27Dk46IhuZVJPhkUd2biGQnUT1C2M6uOUTAaBU7EEheofN\nnWDLP6dkndBBQHVTco+0HmfZpqjVqDqEVEy86VzQvqeZ5e+5tZSlq/H9wkjk\nZC2U1u78Wg7owXOyUGWw7l+r1P08pNud37V3Euo6EQ0M41/sm8fGVwNzwNof\nj0H6gKNW8maeqPUnoa3ADKvjkEttztZ3J8enpeX2tgqzedgQ373etaQCex9R\n/ojhDsGECfAbd+uVYnt4XDWH9+A=\n",
+    "iv": "bX5UiNLRJh7NhiTF\n",
+    "auth_tag": "hgevBn/ZUTfoELJoe17zXA==\n",
+    "version": 3,
+    "cipher": "aes-256-gcm"
+  }
+}

@@ -1,0 +1,59 @@
+${jsonencode({
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "s3:GetObject",
+        "s3:GetObjectAcl",
+        "s3:ListBucket",
+        "s3:ListObjectsV2"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "${s3-dpxn-assets-bucket-arn}/*",
+        "${s3-dpxn-assets-bucket-arn}"
+      ]
+    },
+    {
+      "Action": [
+        "kms:Encrypt",
+        "kms:Decrypt",
+        "kms:GenerateDataKey",
+        "kms:DescribeKey",
+        "kms:ReEncryptFrom",
+        "kms:ReEncryptTo"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "${kms-dpxn-assets-key-arn}"
+      ]
+    },
+    {
+      "Sid": "AccessForCloudwatch",
+      "Effect": "Allow",
+      "Action": [
+        "cloudwatch:ListMetrics",
+        "cloudwatch:PutMetricData",
+        "cloudwatch:GetMetricStatistics",
+        "ec2:DescribeInstances"
+      ],
+      "Resource": [
+        "*"
+      ]
+    },
+    {
+      "Sid": "AccessForCloudwatchLogs",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeInstances",
+        "ec2:DescribeTags",
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:DescribeLogStreams",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "${logstream-dpxn-assets-cloudwatch-log-group-arn}"
+    }
+  ]
+})
+}

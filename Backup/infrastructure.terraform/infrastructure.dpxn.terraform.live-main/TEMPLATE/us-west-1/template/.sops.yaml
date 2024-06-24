@@ -1,0 +1,3 @@
+creation_rules:
+- path_regex: .*
+  kms: <key_reference>+arn:aws:iam::<account_number>:role/Terraform-Admin-Role

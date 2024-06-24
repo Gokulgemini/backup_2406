@@ -1,0 +1,103 @@
+${jsonencode({
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sns:publish",
+      "Effect": "Allow",
+      "Resource": [
+        "${sns-dpxn-payment-events-topic-arn}"
+        ]
+    },
+    {
+      "Action": [
+        "sqs:DeleteMessage",
+        "sqs:ReceiveMessage",
+        "sqs:SendMessage",
+        "sqs:ListQueues"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "${sqs-dpxn-anomalies-queue-arn}",
+        "${sqs-dpxn-payment-router-input-queue-arn}",
+        "${sqs-dpxn-payment-router-responder-events-arn}"
+      ]
+    },
+    {
+      "Action": [
+        "s3:GetObject",
+        "s3:GetObjectAcl",
+        "s3:PutObject",
+        "s3:PutObjectAcl",
+        "s3:ListBucket",
+        "s3:ListObjectsV2"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "${s3-dpxn-anomalies-bucket-arn}/*",
+        "${s3-dpxn-anomalies-bucket-arn}",
+        "${s3-dpxn-payment-router-input-bucket-arn}/*",
+        "${s3-dpxn-payment-router-input-bucket-arn}",
+        "${s3-dpxn-router-plugins-bucket-arn}/*",
+        "${s3-dpxn-router-plugins-bucket-arn}"
+
+      ]
+    },
+    {
+      "Action": [
+        "s3:PutObject",
+        "s3:PutObjectAcl",
+        "s3:ListBucket"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "${s3-dpxn-commercial-router}/*",
+        "${s3-dpxn-commercial-router}"
+      ]
+    },
+    {
+      "Action": [
+        "kms:Encrypt",
+        "kms:Decrypt",
+        "kms:GenerateDataKey",
+        "kms:DescribeKey",
+        "kms:ReEncryptFrom",
+        "kms:ReEncryptTo"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "${kms-s3-payment-router-kms-arn}",
+        "${kms-sqs-payment-router-kms-arn}",
+        "${kms-dpxn-commercial-router}",
+        "${kms-dpxn-payment-events-key-arn}",
+        "${kms-dpxn-payment-router-key-arn}"
+      ]
+    },
+    {
+      "Sid": "AccessForCloudwatch",
+      "Effect": "Allow",
+      "Action": [
+        "cloudwatch:ListMetrics",
+        "cloudwatch:PutMetricData",
+        "cloudwatch:GetMetricStatistics",
+        "ec2:DescribeInstances"
+      ],
+      "Resource": [
+        "*"
+      ]
+    },
+    {
+      "Sid": "AccessForCloudwatchLogs",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeInstances",
+        "ec2:DescribeTags",
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:DescribeLogStreams",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "${logstream-router-cloudwatch-log-group-arn}"
+    }
+  ]
+})
+}

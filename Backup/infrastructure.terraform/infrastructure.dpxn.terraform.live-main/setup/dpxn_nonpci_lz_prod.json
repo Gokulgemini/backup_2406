@@ -1,0 +1,19 @@
+{
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+          "AWS": [
+              "arn:aws:iam::112151777763:role/Terraform-Admin-Role",
+              "arn:aws:iam::928017146542:role/Terraform-Admin-Role",
+              "arn:aws:iam::323265901760:role/Terraform-Admin-Role"
+          ]
+      },
+      "Action": "s3:*",
+      "Resource": [
+          "arn:aws:s3:::dpxn-nonpci-tf-west/*",
+          "arn:aws:s3:::dpxn-nonpci-tf-west"
+      ]
+    }
+  ]
+}

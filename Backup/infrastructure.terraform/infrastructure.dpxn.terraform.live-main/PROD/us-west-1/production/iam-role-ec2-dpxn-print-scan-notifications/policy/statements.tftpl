@@ -1,0 +1,84 @@
+${jsonencode({
+  Version = "2012-10-17",
+  Statement = [
+    {
+      "Action": [
+        "sqs:DeleteMessage",
+        "sqs:ReceiveMessage"
+      ],
+      "Effect": "Allow",
+      "Resource": "${sqs-dpxn-print-scan-notifications}"
+    },
+    {
+      "Action": [
+        "s3:GetObject",
+        "s3:GetObjectAcl"
+      ],
+      "Effect": "Allow",
+      "Resource": "${s3-dpxn-print-scan-notifications}/*"
+    },
+    {
+      "Action": [
+        "s3:PutObject",
+        "s3:PutObjectAcl"
+      ],
+      "Effect": "Allow",
+      "Resource": "${s3-dpxn-check-order}/*"
+    },{
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:GetObjectAcl",
+        "kms:Decrypt"
+      ],
+      "Resource": [
+        "${s3-infra-bucket}/*",
+        "${s3-infra-bucket}/"
+      ]
+    },{
+      "Action": [
+        "kms:Encrypt",
+        "kms:Decrypt",
+        "kms:GenerateDataKey",
+        "kms:DescribeKey",
+        "kms:ReEncryptFrom",
+        "kms:ReEncryptTo"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "${kms-non-db-key}",
+        "${kms-dpxn-print-scan-notifications}",
+        "${kms-dpxn-check-order}"
+      ]
+    },
+    {
+      "Sid": "AccessForCloudwatch",
+      "Effect": "Allow",
+      "Action": [
+        "cloudwatch:ListMetrics",
+        "cloudwatch:PutMetricData",
+        "cloudwatch:GetMetricStatistics",
+        "ec2:DescribeInstances"
+      ],
+      "Resource": [
+        "*"
+      ]
+    },
+    {
+      "Sid": "AccessForCloudwatchLogs",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeInstances",
+        "ec2:DescribeTags",
+        "logs:CreateLogGroup",
+        "logs:DescribeLogGroups",
+        "logs:CreateLogStream",
+        "logs:DescribeLogStreams",
+        "logs:PutLogEvents"
+      ],
+      "Resource": [
+        "*"
+      ]
+    }
+  ]
+})}

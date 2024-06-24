@@ -1,0 +1,10 @@
+{
+  "id": "database",
+  "credentials": {
+    "encrypted_data": "te/U/t0fqVSkjNpk01VCPtf1Fnp3CzpjVOtJ8rgKf/MxO+7wdVFu4DeYpoFv\nv8gNXuoJIN/tpbf6D/q5quS95Mp3hhOjQB0aYcy+7cTnooDWPCe3np0wljhW\nOYl94xHQXRo/ivxbRsPUtG7X6/vhhd/phumbaxn4rjAqE3zDRA==\n",
+    "iv": "9M6WQQrgTFzkK5pq\n",
+    "auth_tag": "478dkmJJxysa8ZUcysOUrA==\n",
+    "version": 3,
+    "cipher": "aes-256-gcm"
+  }
+}

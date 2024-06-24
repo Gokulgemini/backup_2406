@@ -1,0 +1,105 @@
+{
+  "Logging": {
+    "IncludeScopes": false,
+    "LogLevel": {
+      "Default": "#{ImageViewerAPI.LoggingLevel}",
+      "System": "#{ImageViewerAPI.LoggingLevel}",
+      "Microsoft": "#{ImageViewerAPI.LoggingLevel}"
+    }
+  },
+  "AuthorizationOptions": {
+    "ServerUrl": "#{Connect.Host}",
+    "IntrospectionEndpoint": "#{Connect.IntrospectionEndpoint}",
+    "Scope": "#{ImageViewerAPI.Scope}",
+    "ScopeSecret": "#{ImageViewerAPI.ScopeSecret}",
+    "BypassSingleUseToken": "#{ImageViewerAPI.BypassSingleUseToken}",
+    "GrpcHost": "#{Grpc.Host}",
+    "GrpcDeadline": "#{Grpc.Deadline}",
+    "MockUsers": {
+      "default": {
+        "UserId": 0,
+        "FullName": "NoMocks",
+        "MemberId": 0,
+        "FinancialInstitutionId": "NoMocks",
+        "ScanStatus": "NoMocks",
+        "Permissions": [ "/none" ]
+      }
+    },
+    "MessageQueue": {
+      "RabbitHost": "#{RabbitMQ.Host}",
+      "Username": "#{ImageViewerAPI.RabbitMQ.Username}",
+      "Password": "#{ImageViewerAPI.RabbitMQ.Password}",
+      "RequestReplyTimeout": "#{RabbitMQ.RequestReplyTimeout}"
+    },
+    "UnrestrictedEndpointInformation": {
+      "Endpoints": [ "/none" ]
+    }
+  },
+  "MockOptions": {
+    "AllowMockApi": false
+  },
+  "GrpcOptions": {
+    "Host": "#{Grpc.Host}",
+    "Deadline": "#{Grpc.Deadline}"
+  },
+  "Performance": {
+    "GrayLogAddress": "#{GrayLog.Performance.Host}",
+    "JaegerAgentHost": "#{Performance.Trace.Jaeger.Host}",
+    "JaegerAgentPort": "#{Performance.Trace.Jaeger.AgentPort}",
+    "JaegerSampler": "#{Performance.Trace.Jaeger.Sampler}",
+    "PerformanceProvider": "#{Performance.Provider}",
+    "ProbabilisticRate": "#{Performance.Trace.Rate.Probabilistic}",
+    "PrometheusPort": "#{Performance.Prometheus.Port}",
+    "RateLimit": "#{Performance.Trace.Rate.Limit}",
+    "TraceProvider": "#{Performance.Trace.Provider}"
+  },
+  "GraylogSinkOptions": {
+    "HostnameOrAddress": "#{GrayLog.Hostname}",
+    "Port": "#{GrayLog.Port}",
+    "TransportType": "#{GrayLog.TransportType}"
+  },
+  "enyimMemcached": {
+    "Servers": [
+      {
+        "Address": "#{Memcached.Host}",
+        "Port": "#{Memcached.Port}"
+      }
+    ],
+    "Authentication": {
+      "Type": "Enyim.Caching.Memcached.PlainTextAuthenticator",
+      "Parameters": {
+        "zone": "",
+        "userName": "#{ImageViewerAPI.Memcached.Username}",
+        "password": "#{ImageViewerAPI.Memcached.Password}"
+      }
+    }
+  },
+  "MessageQueueOptions": {
+    "Host": "#{RabbitMQ.Host}",
+    "Username": "#{ImageViewerAPI.RabbitMQ.Username}",
+    "Password": "#{ImageViewerAPI.RabbitMQ.Password}",
+    "RequestReplyTimeout": "#{RabbitMQ.RequestReplyTimeout}"
+  },
+  "RepositoryOptions": {
+    "Repositories": [
+      {
+        "Repository": "Item_WebClient_Default",
+        "Settings": {
+          "ConnectionString": "#{Legacy.SqlServer.WebClient.ConnectionString}"
+        }
+      },
+      {
+        "Repository": "Item_WebClient_Leg1",
+        "Settings": {
+          "ConnectionString": "#{Legacy.SqlServer.WebClientLeg1.ConnectionString}"
+        }
+      },
+      {
+        "Repository": "Item_Host",
+        "Settings": {
+          "ConnectionString": "#{Legacy.SqlServer.Host.ConnectionString}"
+        }
+      }
+    ]
+  }
+}

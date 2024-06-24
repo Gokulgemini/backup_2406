@@ -1,0 +1,38 @@
+---
+driver:
+  name: vagrant
+  #box_check_update: true
+  cachier: true
+  customize:
+    memory: 4096
+
+provisioner:
+  name: chef_zero
+  product_name: chef
+  product_version: 14.13.11
+  channel: stable
+  install_strategy: once
+  environments_path: test/environments
+  client_rb:
+    environment: vagrant
+  roles_path: "roles/"
+  cookbook_path: "site-cookbooks/"
+  log_level: "info"
+  #download_url:
+  #checksum:
+
+# verifier:
+#   name: inspec
+
+platforms:
+  - name: ubuntu-18.04
+#  - name: centos-7.6
+
+suites:
+  - name: default
+    data_bags_path: "data_bags"
+    run_list:
+      # - role[common]
+      # - role[app]
+      - recipe[ec_prompt]
+    attributes:

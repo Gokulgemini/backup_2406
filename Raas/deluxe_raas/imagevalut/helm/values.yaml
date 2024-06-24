@@ -1,0 +1,6 @@
+ImageRegistry:  docker-itms.artifactory.deluxe.com
+ImageVaultReplicaCount: 2
+
+COMPlus:
+  gcServer: 1
+  gcConcurrent: 0

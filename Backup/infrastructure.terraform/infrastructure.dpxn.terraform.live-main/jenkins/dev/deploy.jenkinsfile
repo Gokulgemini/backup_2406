@@ -1,0 +1,19 @@
+@Library("deluxe.pipeline.common") _
+
+// AGENT
+String nodeLabel = "terraform-node"
+String gitCredentialID = "github-verifyvalid"
+String vpcEnvironment = "DEV"
+
+terragruntDeploy(
+  nodeLabel: nodeLabel,
+  gitCredentialID: gitCredentialID,
+  vpcEnvironment: vpcEnvironment,
+  region: "${AWS_REGION}",
+  environmentName: "${APP_ENVIRONMENT}",
+  component: "${TG_MODULE}",
+  terragruntAction: "${TG_ACTION}",
+  terragruntFlags: "${TG_EXTRA_FLAGS}",
+  installCLI: "${INSTALL_CLI}",
+  notificationChannel: "${TEAMS}"
+)

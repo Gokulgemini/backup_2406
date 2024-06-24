@@ -1,0 +1,25 @@
+USE [ImageVault]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER PROCEDURE [ImageVault].[Purge] (@maxDeleteRows INT = 10)
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	DECLARE @RC INT = 1
+
+	WHILE @RC != 0
+	BEGIN
+		DELETE TOP (@maxDeleteRows) IMAGE
+		FROM IMAGE AS i
+		WHERE i.ExpiresOn < SYSDATETIMEOFFSET();
+
+		SET @RC = @@ROWCOUNT
+	END
+END;

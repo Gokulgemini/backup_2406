@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Copyright>RDM Corporation</Copyright>
+    <AssemblyTitle>RDM.Data.ImageViewer.SqlServer</AssemblyTitle>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <VersionPrefix>1.4.0</VersionPrefix>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AssemblyName>RDM.Data.ImageViewer.SqlServer</AssemblyName>
+    <PackageId>RDM.Data.ImageViewer.SqlServer</PackageId>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
+    <PackageReference Include="RDM.Core" Version="1.4.43" />
+    <PackageReference Include="RDM.Core.SqlServer" Version="1.4.43" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\RDM.Data.ImageViewer\RDM.Data.ImageViewer.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,13 @@
+[Unit]
+Description=RDM.Service.ImageVault
+
+[Service]
+User=www-data
+ExecStart=/usr/bin/dotnet /var/aspnetcore/RDM.Service.ImageVault/RDM.Service.ImageVault.dll
+WorkingDirectory=/var/aspnetcore/RDM.Service.ImageVault
+SyslogIdentifier=RDM.Service.ImageVault
+Environment=ASPNETCORE_ENVIRONMENT=Production
+Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
+
+[Install]
+WantedBy=multi-user.target

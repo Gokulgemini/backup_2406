@@ -1,0 +1,173 @@
+#!groovy
+
+@Library('Shared-Pipelines') _
+
+node('DotNetCore && Powershell4 && Git && Nuget && Octo')
+{
+    // This will hold the version numbers, since they will be required for multiple steps
+    Map<String, String> versions = new HashMap<String, String>();
+
+    String[] deployProjects = ["RDM.Service.ImageVault"]
+    String[] publishProjects = ["RDM.Model.ImageVault", "RDM.Messaging.ImageVault", "RDM.Client.ImageVault", "RDM.GRPC.ImageVault"]
+    def octopusProjectName = "RDM.Service.ImageVault"
+    def buildVersion = params.version
+
+    /*
+     * Though the script is checked in, when jenkins checks out the code to gain access to this script it checks it out into a special temporary directory
+     * to load this file into its internal processes from. Therefore the first step of the pipeline has to be to checkout the code into the allocated workspace
+     */
+    stage('Checkout')
+    {
+        if (params.build)
+        {
+            checkout scm
+        }
+    }
+
+    stage('Version Format Check')
+    {
+        // Ensure version format is correctly
+        // The format is i.i.i-emergencyi where i is an integer
+        if(!buildVersion.matches(/\d*.\d*.\d*-emergency\d*/))
+        {
+            currentBuild.result = 'FAILURE'
+            error('Version Format is wrong!')
+        }
+    }
+
+    stage('Build')
+    {
+        if (params.build)
+        {
+            def projectFilesToUpdate = findFiles(glob: "src/**/*.csproj")
+
+            // substring after last separator (.)
+            def buildNumber = buildVersion.substring(buildVersion.lastIndexOf('.') + 1)
+
+            versions = dotnetcore.updateBuildNumber(projectFilesToUpdate, buildNumber)
+
+            def solutionFile = findFiles(glob: "*.sln")
+            dotnetcore.build(solutionFile[0].path)
+        }
+    }
+
+    stage('Test')
+    {
+        if (params.build)
+        {
+            def testProjects = findFiles(glob: "tests/**/*.csproj")
+
+            for (int i=0; i!=testProjects.length; i++)
+            {
+                def path = testProjects[i].path
+                def output = "tests/results${i}/TestResults.xml"
+                dotnetcore.executeTests(path, output)
+            }
+        }
+    }
+
+    stage('PublishTest')
+    {
+        if (params.build)
+        {
+            resultFilePattern = "**/TestResults.xml"
+            dotnetcore.publishTest(resultFilePattern)
+        }
+    }
+
+    stage('Publish&Pack')
+    {
+        if (params.build)
+        {
+            dotnetcore.dotnetPack(publishProjects)
+            dotnetcore.octopusPack(deployProjects, versions)
+        }
+    }
+
+    stage('Nuget')
+    {
+        if (params.build)
+        {
+            def deployPackagesToUpload = []
+            for (int j=0; j!=deployProjects.length; j++)
+            {
+                def projectName = deployProjects[j];
+                def files = findFiles(glob: "src/${projectName}/package/*.nupkg")
+
+                for (def file : files)
+                {
+                    deployPackagesToUpload.add(file.path)
+                }
+            }
+
+            def publishPackagesToUpload = []
+            for (int j=0; j!=publishProjects.length; j++)
+            {
+                def projectName = publishProjects[j];
+                def files = findFiles(glob: "src/${projectName}/**/*.symbols.nupkg")
+
+                for (def file : files)
+                {
+                    publishPackagesToUpload.add(file.path)
+                }
+            }
+
+            dotnetcore.emergencyNuget(deployPackagesToUpload, publishPackagesToUpload)
+        }
+    }
+
+    stage('DeployViaOctopus')
+    {
+        if (params.build)
+        {
+            octopus.deployEmergencyFix(octopusProjectName, buildVersion)
+        }
+        else
+        {
+            switch(params.deployTo)
+            {
+                case "PT":
+                    octopus.deployRelease(octopusProjectName, buildVersion, "ProdTest", params.towarm)
+                    break
+                case "Prod":
+                    octopus.deployRelease(octopusProjectName, buildVersion, "Production", params.towarm)
+                    break
+            }
+        }
+    }
+
+    stage('ProductTests')
+    {
+        // QA Tests are not ready for product tests
+        //def jobName = "QA_ITMSAPI"
+        //def jobParameters = [GIT_BRANCH: "development", TEST_ENVIRONMENT: "PP", INCLUDE_TAGS: "Smoke", EXCLUDE_TAGS: "NotReady"]
+
+        //def jobResult = jenkins.triggerJenkinsJob(jobName, jobParameters)
+
+        //if (jobResult != 'SUCCESS')
+        //{
+        //    currentBuild.result = 'UNSTABLE'
+        //}
+    }
+}
+
+node('ssh')
+{
+    def repoName = "imagevault"
+    def solutionVersion = params.version
+
+    stage ("Checkout SSH")
+    {
+        checkout scm
+    }
+
+    stage('Ticket Tag')
+    {
+        tagticket.updateTicket(solutionVersion, repoName)
+    }
+
+    stage('Tag')
+    {
+        sourcecontrol.updateGitTags(repoName, solutionVersion)
+    }
+}

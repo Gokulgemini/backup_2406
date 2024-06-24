@@ -1,0 +1,11 @@
+{
+  "id": "t450963",
+  "groups": [ "echecksadmins"],
+  "comment": "David Rodriguez",
+  "uid": 2001,
+  "shell": "\/bin\/bash",
+  "action": "create",
+  "ssh_keys": [
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCfx99toVwt9GxtE/3GiAZpvkIOtbXMu7r8RJJDUVGcrT8VBIlAvmU8gQZ62X0V6vpgAkbKz/RKsMfKTgvOo8OcDlE9Qx+7U7aRFkvAj+RAd1NwO7A4X6Yg/kIGpS00oYbbnSjnjesMKFeVL9+ecmxFsPjkSre73Ejzm+ctQD/Zdf44zK/p5tFom2pcRa8YDa86aG685hoK+t4epUDIbdBl2N+TfhaHIOJCtLt3It3YsSLHqMRzYmnJld/a8OUsYO8tLP6ctkw66kqLiqAIgnHGiwzvAQVjxRehum2i7YucNpA6QB4692686XkvLXZ48KqNVx6WFpJdG9ihNV7QNiR//RoKFp2zZd/Ap6beIcNzpPI0BCa/k6yHpQE1H+eDWDdHVn6NmBat1SM5aMVJCBeDNZJtDaL3KuG06XQ5kY+ElA+Y8hHDDbCHvnxoU6p3jos/qteMc5ze8TIpjrMPmSwzvjcbhKJXFtMrvFRrlPgO1Hs67P9qsuxKdHiDeYV0E4/wGjIcieWwpa7n3XXgs5IVGae6vnSMMbMLrQJwnzibqejNrNUCiT5dSoX+FoMVLWfqa52k722v+iyRcEosPSS3kqY+gZV8zIhw0pMsu3ZrlUbjbXX3Ptm3O3G3jXfDVAz8IeQ5Mg85URYnxzv4oimnQP+r+XTPBJZe2RSdyO3+7Q== rodriguezorama@gmail.com"
+  ]
+}

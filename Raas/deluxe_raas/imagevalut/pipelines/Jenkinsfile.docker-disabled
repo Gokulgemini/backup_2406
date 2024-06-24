@@ -1,0 +1,20 @@
+node('docker')
+{
+  def imageName = "rdm/service/imagevault"
+
+  stage('Checkout Docker')
+  {
+    checkout scm
+    gitversion = readJSON(text: (sh (script: "dotnet /tools/gitversion/GitVersion.dll", returnStdout: true)))
+    currentBuild.displayName = gitversion.SemVer
+  }
+
+  stage ("Docker Image")
+  {
+    docker.withRegistry("https://docker-itms.artifactory.deluxe.com", 'jenkinsdeploysupport')
+    {
+      def image = docker.build("${imageName}:${gitversion.SemVer}")
+      image.push()
+    }
+  }
+}

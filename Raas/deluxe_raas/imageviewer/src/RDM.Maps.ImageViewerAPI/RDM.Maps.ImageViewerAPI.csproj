@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Copyright>RDM Corporation</Copyright>
+    <AssemblyTitle>RDM.Maps.ImageViewerAPI</AssemblyTitle>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <VersionPrefix>1.4.0</VersionPrefix>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AssemblyName>RDM.Maps.ImageViewerAPI</AssemblyName>
+    <PackageId>RDM.Maps.ImageViewerAPI</PackageId>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RDM.DataTransferObjects.ImageViewerAPI\RDM.DataTransferObjects.ImageViewerAPI.csproj" />
+    <ProjectReference Include="..\RDM.Models.ImageViewerAPI\RDM.Models.ImageViewerAPI.csproj" />
+  </ItemGroup>
+
+</Project>

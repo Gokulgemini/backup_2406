@@ -1,0 +1,19 @@
+[Unit]
+Description=New Relic Infrastructure Agent
+After=syslog.target
+
+[Service]
+RuntimeDirectory=newrelic-infra
+Type=simple
+ExecStart=/usr/bin/newrelic-infra
+MemoryLimit=1G
+Restart=always
+RestartSec=20
+StartLimitInterval=0
+StartLimitBurst=5
+PIDFile=/var/run/newrelic-infra/newrelic-infra.pid
+log_file=<%= @logfile %>
+log_format=json
+
+[Install]
+WantedBy=multi-user.target

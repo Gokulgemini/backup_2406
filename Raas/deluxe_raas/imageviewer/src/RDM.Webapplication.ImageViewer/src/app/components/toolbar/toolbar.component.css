@@ -1,0 +1,24 @@
+.toolbar{
+    overflow: hidden;
+    position: absolute;
+    top: 0%;
+    width: 100vw;
+    height: 30px;
+}
+
+.icons{
+    width: 20px;
+    padding-bottom: 5px;    
+}
+
+toolbar-document-name, toolbar-buttons, toolbar-pagination {
+    height: 100%; 
+}
+
+.fill-space {
+    flex: 1 1 auto;
+}
+
+@media only screen and (max-width: 950px){
+    .fill-space { display: none; }      
+}

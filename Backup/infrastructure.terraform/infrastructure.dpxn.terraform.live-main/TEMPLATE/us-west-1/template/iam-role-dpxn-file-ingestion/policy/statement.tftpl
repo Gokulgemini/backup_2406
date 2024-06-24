@@ -1,0 +1,92 @@
+${jsonencode({
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "sqs:DeleteMessage",
+        "sqs:ReceiveMessage",
+        "sqs:SendMessage"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "${sqs-dpxn-file-ingestion-queue-arn}"
+      ]
+    },
+    {
+      "Action": "sns:publish",
+      "Effect": "Allow",
+      "Resource": "${sns-dpxn-file-events-topic-arn}"
+    },
+    {
+      "Action": [
+        "s3:GetObject",
+        "s3:GetObjectAcl",
+        "s3:PutObject",
+        "s3:PutObjectAcl",
+        "s3:ListBucket",
+        "s3:ListObjectsV2"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "${s3-dpxn-ingestion-demultiplexer-bucket-arn}/*",
+        "${s3-dpxn-ingestion-demultiplexer-bucket-arn}"
+      ]
+    },
+    {
+      "Action": [
+        "s3:GetObject",
+        "s3:GetObjectAcl",
+        "s3:ListBucket",
+        "s3:ListObjectsV2"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "${s3-dpxn-file-ingestion-bucket-arn}/*",
+        "${s3-dpxn-file-ingestion-bucket-arn}"
+      ]
+    },
+    {
+      "Action": [
+        "kms:Encrypt",
+        "kms:Decrypt",
+        "kms:GenerateDataKey",
+        "kms:DescribeKey",
+        "kms:ReEncryptFrom",
+        "kms:ReEncryptTo"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "${kms-dpxn-file-ingestion-key-arn}",
+	      "${kms-dpxn-file-events-key-arn}",
+        "${kms-dpxn-ingestion-demultiplexer-key-arn}"
+      ]
+    },
+    {
+      "Sid": "AccessForCloudwatch",
+      "Effect": "Allow",
+      "Action": [
+        "cloudwatch:ListMetrics",
+        "cloudwatch:PutMetricData",
+        "cloudwatch:GetMetricStatistics",
+        "ec2:DescribeInstances"
+      ],
+      "Resource": [
+        "*"
+      ]
+    },
+    {
+      "Sid": "AccessForCloudwatchLogs",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeInstances",
+        "ec2:DescribeTags",
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:DescribeLogStreams",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "${logstream-dpxn-file-ingestion-cloudwatch-log-group-arn}"
+    }
+  ]
+})
+}

@@ -1,0 +1,25 @@
+<div id="divDocumentName">
+    <div class="input-group mb-3">
+        <div class="input-group-append" *ngIf="!isDocumentNameEditable">
+            <label id="documentNameLabel">{{ imageService.imageConfig.ImageName || 'No name' }}</label> 
+            <span [matTooltip]="imageService.imageConfig.ImageName" matTooltipClass="documentName-tooltip" 
+                [matTooltipDisabled]="disableDocNameLableTooltip"
+                [ngStyle]="{ 'height': isFullscreen ? '90%' : '70%' }">    
+                <label id="documentNameSummarizedLabel" [ngStyle]="{ 'cursor': disableDocNameLableTooltip ? 'default' : 'pointer' }">{{ imageService.imageConfig.ImageName || 'No name' | truncate : DocumentNameCharacterLimit }}</label>
+            </span>
+        </div>
+        <div class="input-group-append" *ngIf="isDocumentNameEditable">                              
+            <input [attr.disabled]="setDocumentNameTextDisableAttribute()" class="inputDocumentName" id="documentNameTextbox" type="text" maxlength="50" 
+                placeholder="Enter Document Name" aria-label="Enter Document Name" aria-describedby="basic-addon2" [(ngModel)]="imageService.imageConfig.ImageName"
+                [ngStyle]="{ 'height': isFullscreen ? '90%' : '70%' }">
+            <span *ngIf="!disableDocNameLableTooltip" id="documentNameSpan" 
+                  matTooltipClass="documentName-tooltip" matTooltipPosition="left"
+                  [matTooltip]="imageService.imageConfig.ImageName">...</span>
+            <ng-container *ngIf="!isFullscreen">
+                <button mat-button *ngIf="!isDocumentEditOn" id="editDocumentName" matTooltip="Edit Document Name" (click)="editDocumentName()" ><img class="icons" alt="Edit Document Name" src="assets\images\icons\baseline_edit_white_18dp.png" /></button> 
+                <button mat-button *ngIf="isDocumentEditOn" id="cancelDocumentName" matTooltip="Cancel Change" (click)="cancelEditDocumentName()"><img class="icons" alt="Cancel Change" src="assets\images\icons\baseline_close_white_18dp.png"/></button>
+                <button mat-button *ngIf="isDocumentEditOn" id="saveDocumenteName" matTooltip="Save Change" (click)="saveDocumentName()"><img class="icons" alt="Save Change" src="assets\images\icons\baseline_check_white_18dp.png"/></button>
+            </ng-container>
+        </div>
+    </div>
+</div>

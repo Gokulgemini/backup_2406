@@ -1,0 +1,105 @@
+{
+  "Logging": {
+    "IncludeScopes": false,
+    "LogLevel": {
+      "Default": "Debug",
+      "System": "Debug",
+      "Microsoft": "Debug"
+    }
+  },
+  "MockOptions": {
+    "AllowMockApi": false
+  },
+  "AuthorizationOptions": {
+    "ServerUrl": "http://localhost:50211",
+    "IntrospectionEndpoint": "connect/introspect",
+    "Scope": "ImageViewer",
+    "ScopeSecret": "secret",
+    "BypassSingleUseToken": true,
+    "GrpcHost": "127.0.0.1",
+    "GrpcDeadline": "30",
+    "MockUsers": {
+      "default": {
+        "UserId": 0,
+        "FullName": "NoMocks",
+        "MemberId": 0,
+        "FinancialInstitutionId": "NoMocks",
+        "ScanStatus": "NoMocks",
+        "Permissions": [ "/none" ]
+      }
+    },
+    "MessageQueue": {
+      "RabbitHost": "localhost",
+      "Username": "guest",
+      "Password": "guest",
+      "RequestReplyTimeout": "15000"
+    },
+    "UnrestrictedEndpointInformation": {
+      "Endpoints": [ "/none" ]
+    }
+  },
+  "MessageQueueOptions": {
+    "Host": "localhost",
+    "Username": "guest",
+    "Password": "guest",
+    "RequestReplyTimeout": "15000"
+  },
+  "GrpcOptions": {
+    "Host": "127.0.0.1",
+    "Deadline": "30" 
+  },
+  "Performance": {
+    "GrayLogAddress": "http://192.168.133.130:12201/gelf",
+    "JaegerAgentHost": "localhost",
+    "JaegerAgentPort": "1",
+    "JaegerSampler": "always",
+    "PerformanceProvider": "noop",
+    "ProbabilisticRate": ".25",
+    "PrometheusPort": "9342",
+    "RateLimit": "1",
+    "TraceProvider": "jaeger"
+  },
+  "GraylogSinkOptions": {
+    "HostnameOrAddress": "https://10.41.102.221",
+    "Port": "12210",
+    "TransportType": "Http"
+  },
+  "enyimMemcached": {
+    "Servers": [
+      {
+        "Address": "10.41.102.182",
+        "Port": 11211
+      }
+    ],
+    "Authentication": {
+      "Type": "Enyim.Caching.Memcached.PlainTextAuthenticator",
+      "Parameters": {
+        "zone": "",
+        "userName": "test@internal",
+        "password": "password"
+      }
+    }
+  },
+  "RepositoryOptions": {
+    "Repositories": [
+      {
+        "Repository": "Item_WebClient_Default",
+        "Settings": {
+          "ConnectionString": "data source=10.41.102.136;initial catalog=WebClientDB;persist security info=True;user id=webclient_user;password=maracas_tt_09;MultipleActiveResultSets=True"
+        }
+      },
+      {
+        "Repository": "Item_WebClient_Leg1",
+        "Settings": {
+          "ConnectionString": "data source=10.41.102.136;initial catalog=WebClientDB;persist security info=True;user id=webclient_user;password=maracas_tt_09;MultipleActiveResultSets=True"
+        }
+      },
+      {
+        "Repository": "Item_Host",
+        "Settings": {
+          "ConnectionString": "data source=tcp:10.41.102.136;initial catalog=ITMS;persist security info=True;user id=itms_user;password=maracas_tt_09;MultipleActiveResultSets=True"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Copyright>RDM Corporation</Copyright>
+    <AssemblyTitle>RDM.Grpc.ImageVault</AssemblyTitle>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <VersionPrefix>1.4.0</VersionPrefix>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AssemblyName>RDM.Grpc.ImageVault</AssemblyName>
+    <PackageId>RDM.Grpc.ImageVault</PackageId>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.21.10" />
+    <PackageReference Include="Grpc" Version="2.46.5" />
+    <PackageReference Include="Grpc.Tools" Version="2.50.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="OpenTracing.Contrib.Grpc" Version="0.4.0" />
+  </ItemGroup>
+
+  <!-- used to compile proto files -->
+  <ItemGroup>
+    <Protobuf Include="**/*.proto" />
+  </ItemGroup>
+
+</Project>

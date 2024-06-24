@@ -1,0 +1,30 @@
+<div id="divButons">
+    <button mat-button id="print" (click)="print()" matTooltip="Print"><img class="icons" alt="Print Button" src="assets/images/icons/baseline_print_white_18dp.png"/></button>
+    <button mat-button id="openDialog" (click)="openDialogBox(template)" matTooltip="Download"><img class="icons" alt="Download Button" src="assets/images/icons/baseline_download_white_18dp.png"/></button>                
+    <button mat-button id="copy" (click)="copyToClipboard()" matTooltip="Copy to Clipboard"><img class="icons" alt="Copy to Clipboard Button" src="assets/images/icons/baseline_file_copy_white_18dp.png"/></button>
+    <button mat-button id="enterFullscreen" [disabled]="isFullScreenButtonDisabled" (click)="enterFullscreen()" *ngIf="!isFullscreen" matTooltip="Open Full Screen"><img class="icons" alt="Full Screen Button" src="assets/images/icons/baseline_fullscreen_white_18dp.png"/></button>
+    <button mat-button id="exitFullscreen" (click)="exitFullscreen()" *ngIf="isFullscreen" matTooltip="Exit Full Screen"><img class="icons" alt="Exit Full Screen Button" src="assets/images/icons/baseline_fullscreen_exit_white_18dp.png"/></button>
+    <button mat-button id="bestFit" (click)="resizeImage('fit')" matTooltip="Best Fit"><img class="icons" alt="Best Fit Button" src="assets/images/icons/best_fit_white_256px.png"/></button>
+    <button mat-button id="fullHeight" (click)="resizeImage('height')" matTooltip="Best Height"><img class="icons" alt="Best Height Button" src="assets/images/icons/baseline_height_white_256px.png"/></button>
+    <button mat-button id="fullWidth" (click)="resizeImage('width')" matTooltip="Best Width"><img class="icons" alt="Best Width Button" src="assets/images/icons/baseline_width_white_256px.png"/></button>  
+
+    <ng-container *ngIf="showFlipButton">
+        <span></span>
+        <button mat-button id="flipImage" (click)="flipImage()" matTooltip="Flip Image"><img class="icons" alt="Flip Image Button" src="assets/images/icons/baseline_flip_white_18dp.png"/></button>
+    </ng-container>
+
+    <span></span>
+    <button mat-button id="invertColour" (click)="invertColour()" matTooltip="Invert Color"><img class="icons" alt="Invert Colour Button" src="assets/images/icons/baseline_invert_colors_white_18dp.png"/></button>
+</div>
+
+<ng-template #template>
+    <div class="modal-body" id="download_dialog_box">
+        <p id="download_dialog_message1">The requested information may be cached to your local computer's hard drive. To ensure safe web browsing, as a matter of practice you should always clear your cache (Temporary Internet Files) after viewing personal data, especially if you are using a public or shared device.</p>
+        <p id="download_dialog_message2">Select OK if you wish to proceed, or Cancel if you do not.</p>
+        <hr>
+        <div class="text-right">
+            <button type="button" class="btn btn-danger" id="download_dialog_cancel_button" style="margin-right: 15px;" (click)="closeDialogBox()" >Cancel</button>
+            <a class="btn" style="background-color: lightgray;" id="download_dialog_ok_button" (click)="download()" >OK</a>         
+        </div>
+    </div>
+</ng-template>

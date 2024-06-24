@@ -1,0 +1,64 @@
+#!groovy
+
+@Library('Shared-Pipelines') _
+
+import org.jenkinsci.plugins.pipeline.utility.steps.fs.FileWrapper
+
+// This node's stages must be run on a worker with the required tags
+node('DotNetCore && Powershell4 && Git && Nuget && DependencyCheck')
+{
+    def repoName = "imagevault"
+    def projectName = "ImageVault"
+
+    /*
+     * Though the script is checked in, when jenkins checks out the code to gain access to this script it checks it out into a special temporary directory
+     * to load this file into its internal processes from. Therefore the first step of the pipeline has to be to checkout the code into the allocated workspace
+     */
+    stage('Checkout')
+    {
+        checkout scm
+    }
+
+    stage('Build')
+    {
+        def buildNumber = env.BUILD_NUMBER
+        def projectFilesToUpdate = findFiles(glob: "src/**/*.csproj")
+        dotnetcore.updateBuildNumber(projectFilesToUpdate, buildNumber)
+
+        def solutionFile = findFiles(glob: "*.sln")
+        dotnetcore.build(solutionFile[0].path)
+    }
+
+    stage('Test')
+    {
+        def testProjects = findFiles(glob: "tests/**/*.csproj")
+
+        for (int i=0; i!=testProjects.length; i++)
+        {
+            def path = testProjects[i].path
+            def output = "tests/results${i}/TestResults.xml"
+            dotnetcore.executeTests(path, output)
+
+            def type = "HTML"
+            def coverageDir = path.replaceAll(testProjects[i].name, "")
+            def coveragePath = "${coverageDir}/test/coverage.html"
+            dotnetcore.coverUnitTests(coverageDir, coveragePath, type)
+        }
+    }
+
+    stage('OWASP')
+    {
+        def path = "${WORKSPACE}\\src\\RDM.Service.ImageVault"
+        dotnetcore.OWASP(path, repoName)
+    }
+
+    stage('Sonar')
+    {
+        def projectVersion = "1.4"
+        def coveragePath = "${WORKSPACE}/tests/**/test/coverage.html"
+        def reportPath = "${WORKSPACE}/tests/**/TestResults.xml"
+        def dependencyPath = "${WORKSPACE}/dependency-check-report.xml"
+
+        sonar.dotNetCoreSonarUpdate(repoName, projectName, projectVersion, coveragePath, reportPath, dependencyPath)
+    }
+}

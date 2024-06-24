@@ -1,0 +1,276 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OrboRecognitionService",
+    "version": "1.0"
+  },
+  "paths": {
+    "/v1/Extraction/{product}/document": {
+      "post": {
+        "tags": [
+          "Extraction"
+        ],
+        "summary": "Extracts data from a single document",
+        "operationId": "ExtractFromSingleDocument",
+        "parameters": [
+          {
+            "name": "product",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ProductTypeCode"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SingleDocumentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+            "httpMethod" : "POST",
+            "uri" : "http://orborecognitionservice.execute-api.us-east-1.amazonaws.com/v1/extraction/{product}/document",
+            "responses" : {
+              "default" : {
+                "statusCode" : "200",
+                "responseParameters" : {
+                }
+              }
+            },
+            "passthroughBehavior" : "when_no_match",
+            "type" : "http"
+          }         
+      }
+    },
+    "/v1/Extraction/{product}/documents": {
+      "post": {
+        "tags": [
+          "Extraction"
+        ],
+        "summary": "Extracts data from multiple documents",
+        "operationId": "ExtractFromMultipleDocuments",
+        "parameters": [
+          {
+            "name": "product",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ProductTypeCode"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MultipleDocumentsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+            "httpMethod" : "POST",
+            "uri" : "http://orborecognitionservice.execute-api.us-east-1.amazonaws.com/v1/extraction/{rps}/documents",
+            "responses" : {
+              "default" : {
+                "statusCode" : "200",
+                "responseParameters" : {
+                }
+              }
+            },
+            "passthroughBehavior" : "when_no_match",
+            "type" : "http"
+          }        
+      }
+    }   
+  },
+  "components": {
+    "schemas": {
+      "Address": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/AddressTypeCode"
+          },
+          "street": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "state": {
+            "type": "string",
+            "nullable": true
+          },
+          "zip": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AddressTypeCode": {
+        "enum": [
+          "AccountHolder",
+          "PlaceOfDeposit"
+        ],
+        "type": "string"
+      },
+      "DocumentTypeCode": {
+        "enum": [
+          "Check",
+          "BusinessCheck",
+          "Stub",
+          "MoneyOrder",
+          "Other"
+        ],
+        "type": "string"
+      },
+      "ExtractionTypeCode": {
+        "enum": [
+          "Unknown",
+          "Car",
+          "Lar",
+          "Payee",
+          "Payer",
+          "Micr",
+          "Signature",
+          "Iqa",
+          "Pnv",
+          "Serial",
+          "Date"
+        ],
+        "type": "string"
+      },
+      "MetadataParameters": {
+        "type": "object",
+        "properties": {
+          "micr": {
+            "type": "string",
+            "nullable": true
+          },
+          "amount": {
+            "type": "string",
+            "nullable": true
+          },
+          "addresses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Address"
+            },
+            "nullable": true
+          },
+          "accountCreateDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "issuedName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MultipleDocumentsRequest": {
+        "type": "object",
+        "properties": {
+          "documents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SingleDocumentRequest"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProductTypeCode": {
+        "enum": [
+          "Rps",
+          "D247"
+        ],
+        "type": "string"
+      },
+      "SingleDocumentRequest": {
+        "type": "object",
+        "properties": {
+          "applicationId": {
+            "type": "string",
+            "nullable": true,
+            "example": "ApplicationId"
+          },
+          "batchId": {
+            "type": "string",
+            "nullable": true,
+            "example": "f8c89393-c3a9-4756-b245-ea79d840c984"
+          },
+          "customerId": {
+            "type": "string",
+            "nullable": true,
+            "example": "070309fd-6c7f-471a-9d50-945c763ae49a"
+          },
+          "documentType": {
+            "$ref": "#/components/schemas/DocumentTypeCode"
+          },
+          "documentName": {
+            "type": "string",
+            "nullable": true,
+            "example": "f0166ec3-1e4c-478b-8caf-de69a6523303.json"
+          },
+          "profileUri": {
+            "type": "string",
+            "nullable": true
+          },
+          "image": {
+            "type": "string",
+            "format": "byte",
+            "nullable": true
+          },
+          "extraction": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExtractionTypeCode"
+            },
+            "nullable": true,
+            "example": [
+              "CAR",
+              "LAR",
+              "PAYEE",
+              "MICR",
+              "SIGNATURE",
+              "PAYER",
+              "IQA",
+              "PNV",
+              "SERIAL",
+              "DATE"
+            ]
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/MetadataParameters"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

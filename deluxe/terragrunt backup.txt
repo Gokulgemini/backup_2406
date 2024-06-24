@@ -1,0 +1,305 @@
+locals {
+  # Automatically load environment-level variables
+  environment_vars = read_terragrunt_config(find_in_parent_folders("env.hcl"))
+  account_vars     = read_terragrunt_config(find_in_parent_folders("account.hcl"))
+
+  # Extract out common variables for reuse
+  app_environment      = lower(local.environment_vars.locals.app_environment)
+  app_name             = "mpc-payroll"
+  certificate_arn      = local.account_vars.locals.wildcard_arn
+  iam_instance_profile = "EC2_IAM_Role"
+}
+
+# Terragrunt will copy the Terraform configurations specified by the source parameter, along with any files in the
+# working directory, into a temporary folder, and execute your Terraform commands in that folder.
+terraform {
+  source = "git::ssh://git@bitbucket.deluxe.com:7999/dtf/aws-ec2-asg-alb.git//?ref=1.9.0"
+}
+
+dependency "common-tags" {
+  config_path = "${get_terragrunt_dir()}/../common-tags"
+}
+
+dependency "vpc-info" {
+  config_path = "${get_terragrunt_dir()}/../../_global/vpc-info"
+}
+
+dependency "common-sg" {
+  config_path = "${get_terragrunt_dir()}/../../_global/common-security-groups"
+}
+
+# Include all settings from the root terragrunt.hcl file
+include {
+  path = find_in_parent_folders()
+}
+
+# These are the variables we have to pass in to use the module specified in the terragrunt configuration above
+inputs = {
+  # Load Balancers & Target Groups
+  create_alb = true
+  alb_name    = "${local.app_environment}-${local.app_name}"
+  vpc_id      = dependency.vpc-info.outputs.vpc_id
+  alb_subnets = dependency.vpc-info.outputs.alb_subnets
+  alb_security_groups = concat(
+    [
+      dependency.vpc-info.outputs.baseline_sg_id,
+      dependency.vpc-info.outputs.web_sg_id
+    ],
+    dependency.vpc-info.outputs.alb_sg_ids
+  )
+  alb_target_groups = [{
+    "name"             = "${local.app_environment}-${local.app_name}-https",
+    "backend_protocol" = "HTTPS",
+    "backend_port"     = 443,
+    "target_type"      = "instance"
+    health_check = {
+      enabled             = true
+      path                = "/"
+      port                = 443
+      healthy_threshold   = 5
+      unhealthy_threshold = 5
+      timeout             = 5
+      interval            = 30
+      protocol            = "HTTPS"
+      matcher             = "200"
+    }
+  }]
+
+  http_tcp_listeners = [{
+    port               = 80
+    protocol           = "HTTP"
+    target_group_index = 0
+  }]
+
+  https_listeners = [{
+    port               = 443
+    protocol           = "HTTPS"
+    certificate_arn    = local.certificate_arn
+    target_group_index = 0
+  }]
+  alb_access_logs = {
+    enabled = true
+    bucket  = "<id-of-bucket-which-will-store-lb-logs>"
+    prefix  = "<directory-prefix-to-use-in-bucket-for-this-lb-logs>"
+  }
+  alb_tags = merge({ "TerraformPath" = path_relative_to_include() }, dependency.common-tags.outputs.common_tags)
+
+  # Launch Configuration/Template
+
+  create_lc            = false
+  lc_name              = "${local.app_environment}-${local.app_name}"
+
+  create_lt            = true
+  launch_template_name = "${local.app_environment}-${local.app_name}"
+  launch_template_description = "App ec2 server windows"
+
+  ami_owner_id         = "095876105558"
+  ami_filter_string    = "GS-DLX-WIN-BASELINE-*"
+  instance_type        = "t3a.large"
+  iam_instance_profile = local.iam_instance_profile
+  enable_domain_join   = true
+  directory_id         = "d-91673df896"
+
+  instance_security_groups = concat(
+    [
+      dependency.vpc-info.outputs.baseline_sg_id,
+      dependency.vpc-info.outputs.web_sg_id,
+      dependency.common-sg.outputs.sg_ids["ansible-sg"].security_group_id,
+      dependency.common-sg.outputs.sg_ids["snow-discovery-sg"].security_group_id
+    ],
+    dependency.vpc-info.outputs.alb_sg_ids
+  )
+
+  root_block_device = [{
+    delete_on_termination = true
+    volume_size           = 100
+    volume_type           = "gp2"
+  },]
+
+  ebs_block_device = [{
+    device_name           = "xvdb"
+    delete_on_termination = true
+    volume_size           = 100
+    volume_type           = "gp2"
+    encrypted             = true
+    },{
+    device_name           = "xvdc"
+    delete_on_termination = true
+    volume_size           = 25
+    volume_type           = "gp2"
+    encrypted             = true
+  },]
+
+  block_device_mappings = [
+    {
+      # Root volume
+      device_name = "/dev/xvda"
+      no_device   = 0
+      ebs = {
+        delete_on_termination = true
+        encrypted             = true
+        volume_size           = 20
+        volume_type           = "gp2"
+      }
+      }, {
+      device_name = "/dev/xvdb"
+      no_device   = 1
+      ebs = {
+        delete_on_termination = true
+        encrypted             = true
+        volume_size           = 30
+        volume_type           = "gp2"
+      }
+    }
+  ]
+
+  network_interfaces = [
+    {
+      delete_on_termination = true
+      description           = "eth0"
+      device_index          = 0
+      security_groups       = [dependency.vpc-info.outputs.baseline_sg_id, dependency.vpc-info.outputs.web_sg_id]
+    },
+    {
+      delete_on_termination = true
+      description           = "eth1"
+      device_index          = 1
+      security_groups       = [dependency.vpc-info.outputs.baseline_sg_id, dependency.vpc-info.outputs.web_sg_id]
+    }
+  ]
+
+  monitoring = true
+
+  # Autoscaling Groups
+  create_ec2          = false
+  create_asg          = true
+
+  use_lc              = false
+  use_lt              = true
+
+  asg_name            = "${local.app_environment}-${local.app_name}"
+  min_size            = 1
+  max_size            = 1
+  desired_capacity    = 1
+  vpc_zone_identifier = dependency.vpc-info.outputs.web_subnet_ids
+
+  asg_tags = concat(dependency.common-tags.outputs.asg_common_tags,
+    [
+      {
+        key                 = "TerraformPath"
+        value               = path_relative_to_include()
+        propagate_at_launch = true
+      },
+      {
+        key                 = "Domain"
+        value               = "deluxe.com"
+        propagate_at_launch = true
+      },
+      {
+        key                 = "Application"
+        value               = "MPC"
+        propagate_at_launch = true
+      },
+      {
+        key                 = "ApplicationRole"
+        value               = "IIS Webserver"
+        propagate_at_launch = true
+      },
+      {
+        key                 = "ComponentName"
+        value               = "Payroll"
+        propagate_at_launch = true
+      },
+      {
+        key                 = "Owner"
+        value               = "MyPayCenter"
+        propagate_at_launch = true
+      },
+      {
+        key                 = "OSType"
+        value               = "Windows"
+        propagate_at_launch = true
+      },
+      {
+        key                 = "OSFlavor"
+        value               = "Windows 2019"
+        propagate_at_launch = true
+      },
+      {
+        key                 = "CICriticality"
+        value               = "3 - Low"
+        propagate_at_launch = true
+      },
+      {
+        key                 = "ManagedBy"
+        value               = "Mike Crist, Aruna Madiraju"
+        propagate_at_launch = true
+      }
+  ])
+}
+Using EC2 Instance Only
+locals {
+  # Automatically load environment-level variables
+  account_vars = read_terragrunt_config(find_in_parent_folders("account.hcl"))
+  landing_zone = lower(local.account_vars.locals.account_name)
+}
+
+# Terragrunt will copy the Terraform configurations specified by the source parameter, along with any files in the
+# working directory, into a temporary folder, and execute your Terraform commands in that folder.
+terraform {
+ source = "git::ssh://git@bitbucket.deluxe.com:7999/dtf/aws-ec2-asg-alb//?ref=2.0.0"
+}
+
+dependency "common-tags" {
+  config_path = "${get_terragrunt_dir()}/../common-tags"
+}
+
+dependency "vpc-info" {
+  config_path = "${get_terragrunt_dir()}/../vpc-info"
+}
+
+# Include all settings from the root terragrunt.hcl file
+include {
+  path = find_in_parent_folders()
+}
+
+# These are the variables we have to pass in to use the module specified in the terragrunt configuration above
+inputs = {
+  create_ec2 = true
+  create_lb = false
+  create_lc = false
+  create_lt = false
+  create_asg = false
+
+  instance_name = "jenkins-node-${local.landing_zone}-dr"
+  instance_type = "t3.large"
+  instance_key_name = "mypaycenter-${local.landing_zone}-dr"
+  iam_instance_profile = "EC2_TerraformAdmin_Profile"
+
+  ami_owner_id         = "095876105558"
+  ami_filter_string    = "Template-RedHat7-Packer"
+
+  subnet_id = element(dependency.vpc-info.outputs.web_subnet_ids, 0)
+  instance_security_groups = [
+    dependency.vpc-info.outputs.baseline_sg_id,
+    dependency.vpc-info.outputs.web_sg_id
+  ]
+
+  root_block_device = [{
+    delete_on_termination = true
+    volume_size           = 200
+    volume_type           = "gp2"
+  },]
+
+  monitoring = true
+
+  instance_tags = merge(dependency.common-tags.outputs.common_tags, 
+  {
+    TerraformPath = path_relative_to_include()
+    Owner = "MyPayCenter"
+    OSType = "Linux"
+    OSFlavor = "RedHat Enterprise Linux 7"
+    CICriticality = "3 - Low"
+    ManagedBy = "Mike Crist, Aruna Madiraju"
+  })
+}

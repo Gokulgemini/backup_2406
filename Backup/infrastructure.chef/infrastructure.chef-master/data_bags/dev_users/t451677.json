@@ -1,0 +1,11 @@
+{
+  "id": "t451677",
+  "groups": [ "echecksadmins"],
+  "comment": "Allen Ahner",
+  "uid": 2005,
+  "shell": "\/bin\/bash",
+  "action": "create",
+  "ssh_keys": [
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCwDCKy/DlNHW2GhmTZwA7G48mbTyMmJUCo0BbT/BILJtxkWR7s4r/QFWRnVBNFBZnKSNbnqeqXfCuyR4nqVoh/dIhEKgbk0M/9yZz4dfzeLFjn8r415ugVcTbewOSuC7T0VgBDfFYpQkGD4q7QYIjrCUFedvigBc9PCEDFsWeUZ6+iQk9x/8diRMRs5P0RGUi365LhF7sXpsO2Lw8aFjTt7+n9DeWFzY/DS6ERClix+jAlWJqt5lljwpVa5353DEjFDLSHqx+CKlU7/oZ9TWZI/rlEPmewuiM0hn4H3SHoETSuoFq6iQdidDh/y6+hFFGHCNWUY/E1VVivj29sJfU2v0Wh+0bEwiy0N354VgyT1ti6QdLVoaj3Xn5/ekOSkX6PmltUB9mv1sRtIpUha92iv7L+PbBy8nEsNMEwtBqWvoR4TVzwjUUQGb1Zu2o8DNJbIq91zdmC/e212H7X9W9ZVcn7pK4UgnsowKTQKNuFPft+9ndNdJA/m3vcEv2RAoes2KSL9McxrF+Hfg4iEz/sGnNIVs/60/Tmepp7d5rKjSOWoIX0Sh/sBBUVoN9LwIg79G8IeCdYaggdZqE0/UGOn4+z5f7qSoM7wMi9DEaIk3asyCX3l3Y4i6e7leoIyfeD2BljYyg/I69EcM2+tnxrn1YaG4SYLnZiDxemnIShzQ== t451677@AC02YK1DCJGH5"
+  ]
+}

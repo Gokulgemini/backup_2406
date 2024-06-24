@@ -1,0 +1,64 @@
+#!groovy
+
+@Library('Shared-Pipelines') _
+
+import org.jenkinsci.plugins.pipeline.utility.steps.fs.FileWrapper
+
+// This node's stages must be run on a worker tagged with all of the following: DotNetCore, Powershell4, Git, Nuget
+node('DotNetCore && Powershell4 && Git && Nuget')
+{
+    /*
+     * Though the script is checked in, when jenkins checks out the code to gain access to this script it checks it out into a special temporary directory
+     * to load this file into its internal processes from. Therefore the first step of the pipeline has to be to checkout the code into the allocated workspace
+     */
+    stage('Checkout')
+    {
+        checkout scm
+    }
+
+    stage('Build')
+    {
+        def buildNumber = env.BUILD_NUMBER
+        def projectFilesToUpdate = findFiles(glob: "src/**/*.csproj")
+        dotnetcore.updateBuildNumber(projectFilesToUpdate, buildNumber)
+
+        def solutionFile = findFiles(glob: "*.sln")
+        dotnetcore.build(solutionFile[0].path)
+    }
+
+    stage('Test')
+    {
+        def testProjects = findFiles(glob: "tests/**/*.csproj")
+
+        for (int i=0; i!=testProjects.length; i++)
+        {
+            def path = testProjects[i].path
+            def output = "tests/results${i}/TestResults.xml"
+            dotnetcore.executeTests(path, output)
+        }
+    }
+
+    stage('PublishTest')
+    {
+        resultFilePattern = "**/TestResults.xml"
+        dotnetcore.publishTest(resultFilePattern)
+    }
+
+    stage('CheckmarxScan')
+    {
+        step([$class: 'CxScanBuilder', comment: '', configAsCode: true, credentialsId: '', customFields: '', excludeFolders: '', exclusionsSetting: 'global', failBuildOnNewResults: false, failBuildOnNewSeverity: 'HIGH', vulnerabilityThresholdEnabled: true, highThreshold: 0, filterPattern: '''!**/_cvs/**/*, !**/.svn/**/*, !**/.hg/**/*, !**/.git/**/*, !**/.bzr/**/*,
+        !**/.gitgnore/**/*, !**/.gradle/**/*, !**/.checkstyle/**/*, !**/.classpath/**/*, !**/bin/**/*,
+        !**/obj/**/*, !**/backup/**/*, !**/.idea/**/*, !**/*.DS_Store, !**/*.ipr, !**/*.iws,
+        !**/*.bak, !**/*.tmp, !**/*.aac, !**/*.aif, !**/*.iff, !**/*.m3u, !**/*.mid, !**/*.mp3,
+        !**/*.mpa, !**/*.ra, !**/*.wav, !**/*.wma, !**/*.3g2, !**/*.3gp, !**/*.asf, !**/*.asx,
+        !**/*.avi, !**/*.flv, !**/*.mov, !**/*.mp4, !**/*.mpg, !**/*.rm, !**/*.swf, !**/*.vob,
+        !**/*.wmv, !**/*.bmp, !**/*.gif, !**/*.jpg, !**/*.png, !**/*.psd, !**/*.tif, !**/*.swf,
+        !**/*.jar, !**/*.zip, !**/*.rar, !**/*.exe, !**/*.dll, !**/*.pdb, !**/*.7z, !**/*.gz,
+        !**/*.tar.gz, !**/*.tar, !**/*.gz, !**/*.ahtm, !**/*.ahtml, !**/*.fhtml, !**/*.hdm,
+        !**/*.hdml, !**/*.hsql, !**/*.ht, !**/*.hta, !**/*.htc, !**/*.htd, !**/*.war, !**/*.ear,
+        !**/*.htmls, !**/*.ihtml, !**/*.mht, !**/*.mhtm, !**/*.mhtml, !**/*.ssi, !**/*.stm,
+        !**/*.bin,!**/*.lock,!**/*.svg,!**/*.obj,
+        !**/*.stml, !**/*.ttml, !**/*.txn, !**/*.xhtm, !**/*.xhtml, !**/*.class, !**/*.iml, !Checkmarx/Reports/*.*,
+        !OSADependencies.json, !**/node_modules/**/*, !**/.cxsca-results.json, !**/.cxsca-sast-results.json, !.checkmarx/cx.config''', fullScanCycle: 10, groupId: '27', password: '{AQAAABAAAAAQYvnDut0m6xpPW8oIwEwN0dtjKTMqCS1C3elrrO1Xol0=}', preset: '46', projectName: 'ImageVault', sastEnabled: true, scaReportFormat: 'PDF', serverUrl: 'https://codescan.deluxe.com', sourceEncoding: '1', username: '', vulnerabilityThresholdResult: 'FAILURE', waitForResultsEnabled: true])
+    }
+}

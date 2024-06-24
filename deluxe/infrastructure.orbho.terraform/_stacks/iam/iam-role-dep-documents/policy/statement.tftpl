@@ -1,0 +1,32 @@
+${jsonencode({
+   "Version":"2012-10-17",
+   "Statement":[
+      { 
+         "Action": [
+          "s3:PutObject",
+          "s3:PutObjectAcl",
+          "s3:ListBucket"
+ 	      ],
+        "Effect": "Allow",
+        "Resource": [
+            "${s3-dep-documents-bucket-arn}/*",
+            "${s3-dep-documents-bucket-arn}"
+        ]
+      },
+      {
+         "Action":[
+            "kms:Encrypt",
+            "kms:Decrypt",
+            "kms:GenerateDataKey",
+            "kms:DescribeKey",
+            "kms:ReEncryptFrom",
+            "kms:ReEncryptTo"
+         ],
+         "Effect":"Allow",
+         "Resource":[
+            "${kms-dep-documents-key-arn}"
+         ]
+      }
+   ]
+})
+}

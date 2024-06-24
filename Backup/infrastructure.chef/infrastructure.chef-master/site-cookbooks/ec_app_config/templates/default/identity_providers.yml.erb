@@ -1,0 +1,39 @@
+# Deployed by Chef. Make changes in the databag used by chef to make
+# permanent.  This will be overwritten on the next Chef run.
+
+base: &base
+<% @configuration.each do |key, value| %>
+  <% if value.is_a?(Hash) %>
+  <%= key %>:
+  <% value.each do |nest1_key, nest1_value|%>
+    <% if nest1_value.is_a?(Hash) %>
+    <%= nest1_key %>:
+      <% nest1_value.each do |nest2_key, nest2_value|%>
+      <%= nest2_key %>: <%= nest2_value %>
+      <% end %>
+    <% else %>
+    <%= nest1_key %>: <%= nest1_value %>
+    <% end %>
+  <% end %>
+  <% else %>
+  <%= key %>: <%= value %>
+  <% end %>
+<% end %>
+development:
+  <<: *base
+test:
+  <<: *base
+staging:
+  <<: *base
+sandbox:
+  <<: *base
+mpx_sandbox:
+  <<: *base
+training:
+  <<: *base
+preproduction:
+  <<: *base
+production:
+  <<: *base
+lz:
+  <<: *base

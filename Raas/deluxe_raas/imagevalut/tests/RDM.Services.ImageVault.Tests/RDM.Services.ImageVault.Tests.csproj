@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Copyright>RDM Corporation</Copyright>
+    <AssemblyTitle>RDM.Services.ImageVault.Tests</AssemblyTitle>
+    <TargetFramework>net6.0</TargetFramework>
+    <AssemblyName>RDM.Services.ImageVault.Tests</AssemblyName>
+    <PackageId>RDM.Services.ImageVault.Tests</PackageId>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="archive_test.zip" />
+    <EmbeddedResource Include="sample.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\RDM.Services.ImageVault\RDM.Services.ImageVault.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.Core.Testing" Version="2.46.5" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0" />
+    <PackageReference Include="xunit" Version="2.4.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="NSubstitute" Version="4.4.0" />
+    <PackageReference Include="Serilog.Sinks.XUnit" Version="3.0.3" />
+    <PackageReference Include="XunitXml.TestLogger" Version="3.0.70" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="ImageConverterUnitTests.cs" />
+  </ItemGroup>
+  <PropertyGroup>
+    <!-- Mark the project as being a test project -->
+    <SonarQubeTestProject>true</SonarQubeTestProject>
+  </PropertyGroup>
+
+</Project>

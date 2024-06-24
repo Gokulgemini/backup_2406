@@ -1,0 +1,7 @@
+{
+  "id": "deploy",
+  "uid": 1006,
+  "groups": [ "deploy" ],
+  "shell": "\/bin\/bash",
+  "action": "create"
+}

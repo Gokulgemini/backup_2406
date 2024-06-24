@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+print_region_report () {
+  REGION=$1
+  TYPE=$2
+
+  if [ $TYPE = "_global" ]; then
+    FOLDERS=$(ls -1ld TEMPLATE/$REGION/_global/* | grep ^d | awk -F '/' '{print $4}')
+  else 
+    FOLDERS=$(ls -1ld TEMPLATE/$REGION/template/* | grep ^d | awk -F '/' '{print $4}')
+  fi
+  printf '=%.0s' {1..45}; printf "$REGION"; printf '=%.0s' {1..45}; printf "\n"
+  printf "%-50s | %-13s | %-13s | %-13s\n" "Folder: $TYPE" "Template" "DEV" "XUAT"
+  printf '=%.0s' {1..99}; printf "\n"
+  for FOLDER in $FOLDERS
+  do
+    if [ $TYPE = "_global" ]; then
+      TEMPLFILE="./TEMPLATE/$REGION/_global/$FOLDER/terragrunt.hcl"
+      DEVFILE="./DEV/$REGION/_global/$FOLDER/terragrunt.hcl"
+      XUATFILE="./PROD/$REGION/_global/$FOLDER/terragrunt.hcl"
+    else 
+      TEMPLFILE="./TEMPLATE/$REGION/template/$FOLDER/terragrunt.hcl"
+      DEVFILE="./DEV/$REGION/dev/$FOLDER/terragrunt.hcl"
+      XUATFILE="./PROD/$REGION/xuat/$FOLDER/terragrunt.hcl"
+    fi
+    
+    if [ ! -f "$DEVFILE" ] || [ ! -f "$XUATFILE" ]; then
+        printf "%-50s | %-10s\n" "$FOLDER" "FILE DOES NOT EXIST IN ALL ENVS"
+    else
+      HASHTMPL=$(md5 -q $TEMPLFILE | cut -d " " -f1)
+      HASHDEV=$(md5 -q $DEVFILE | cut -d " " -f1)
+      HASHXUAT=$(md5 -q $XUATFILE | cut -d " " -f1)
+      if [ "$HASHTMPL" = "$HASHDEV" ] && [ "$HASHDEV" = "$HASHXUAT" ]; then
+        printf "%-50s | %-15s | %-15s | %-15s\n" "$FOLDER" "✔" "✔" "✔"
+      else 
+        printf "%-50s | %-13s | %-13s | %-13s\n" "$FOLDER" "FALSE ${HASHTMPL:0:4}" "FALSE ${HASHDEV:0:4}" "FALSE ${HASHXUAT:0:4}"
+      fi 
+    fi
+  done
+  printf "\n" 
+
+}
+
+print_region_report "us-west-1" "_global"
+print_region_report "us-west-2" "_global"
+print_region_report "us-west-1" "main"
+print_region_report "us-west-2" "main"

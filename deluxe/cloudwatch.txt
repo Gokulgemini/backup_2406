@@ -1,0 +1,31 @@
+resource "aws_cloudwatch_log_group" "app_cloudwatch_log_group" {
+
+  name              = var.name
+  retention_in_days = var.log_retention_in_days
+  kms_key_id        = var.kms_key_id
+  tags              = var.tags
+}
+---------------------------------------------
+output "cloudwatch_arn" {
+  value = aws_cloudwatch_log_group.app_cloudwatch_log_group.arn
+}
+----------------------------------------------
+variable "name" {
+  description = "Name of the cloudwatch log group"
+  type = string
+}
+
+variable "log_retention_in_days" {
+  description = "Number of days logs should be retained"
+  type = number
+  default = 120
+}
+variable "tags" {
+  type = map(string)
+  description = "Tags to put on resources"
+}
+variable "kms_key_id" {
+  type = string
+  description = "Account specific ARN of the KMS key to encrypt the logs"
+  default = null
+}

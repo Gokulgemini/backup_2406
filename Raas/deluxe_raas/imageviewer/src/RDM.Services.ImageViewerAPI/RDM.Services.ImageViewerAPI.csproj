@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Copyright>RDM Corporation</Copyright>
+    <AssemblyTitle>RDM.Services.ImageViewerAPI</AssemblyTitle>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <VersionPrefix>1.4.0</VersionPrefix>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AssemblyName>RDM.Services.ImageViewerAPI</AssemblyName>
+    <PackageId>RDM.Services.ImageViewerAPI</PackageId>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="resources\VirtualRemit.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="resources\VirtualRemit.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EnyimMemcachedCore" Version="2.5.5" />
+    <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="13.6.0" />
+    <PackageReference Include="RDM.Client.ImageVault" Version="1.4.275" />
+    <PackageReference Include="RDM.Client.Tracker" Version="1.4.164" />
+    <PackageReference Include="RDM.Legacy.Itms" Version="1.4.114" />
+    <PackageReference Include="RDM.Legacy.WebClientDb" Version="1.4.114" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RDM.Data.ImageViewer.SqlServer\RDM.Data.ImageViewer.SqlServer.csproj" />
+    <ProjectReference Include="..\RDM.Messaging.ImageViewerAPI\RDM.Messaging.ImageViewerAPI.csproj" />
+    <ProjectReference Include="..\RDM.Models.ImageViewerAPI\RDM.Models.ImageViewerAPI.csproj" />
+  </ItemGroup>
+</Project>

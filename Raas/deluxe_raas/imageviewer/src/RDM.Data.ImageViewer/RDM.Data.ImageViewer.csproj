@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <Copyright>RDM Corporation</Copyright>
+	  <AssemblyTitle>RDM.Data.ImageViewer</AssemblyTitle>
+	  <NeutralLanguage>en-US</NeutralLanguage>
+	  <VersionPrefix>1.4.0</VersionPrefix>
+	  <TargetFramework>netstandard2.0</TargetFramework>
+	  <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+	  <AssemblyName>RDM.Data.ImageViewer</AssemblyName>
+	  <PackageId>RDM.Data.ImageViewer</PackageId>
+	  <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+	  <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+	  <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="RDM.Model.Itms" Version="1.4.44" />
+  </ItemGroup>
+
+</Project>

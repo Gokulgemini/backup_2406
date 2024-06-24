@@ -1,0 +1,11 @@
+{
+  "id": "t451437",
+  "groups": [ "echecksadmins"],
+  "comment": "Pete McKenna",
+  "uid": 2004,
+  "shell": "\/bin\/bash",
+  "action": "create",
+  "ssh_keys": [
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCfXEgJ/JRKDRJu1WaKivwMvSv2gEh+7fuIGVzaBeJDRTNz6lvVVZTkacLv7VRQuJYGQ9m1nVCesz+NZPQ646hijY5hhLJcK87KEv0iTckKlZb4EnLP++bGgOfTlDDmw5iqX+MGd6Zu8nKy5Q0NrYbzOCmt3cOJnUiWk3ORQVeKKi1Ty1cm+ovMmCgt3WM/wfNNvh9Gh4EfUslZPNZqi+p1mlrRjcpSiys+s3m1DKx9CChHdKLQAX9qn97KEaGszqtBoIgLBRgEcB1/c4nxnM2kLV6lv6T8Ly0zm+Ls9cC3KD2/y7LDW46MTCfLM+srZ9yv/2gtp75Z6uwyhaR2Z6aoC4UF/N59xhy7swyjVCo6zeoS21jLOnektowAfSnr0jNHCtFJeBa6zOiMqT/0gnq9n6E2p8ZVTStCGxQ8ZeEfmA0t/68WnizMPeZJpxDkp+FuVpMcWkFymXpZfmgGrtt+qz001+s+5vrtM47vqbfzCNQuyPcsVyo6ImWrkikkqXc= t451437@AC02F63UYMD6T"
+  ]
+}

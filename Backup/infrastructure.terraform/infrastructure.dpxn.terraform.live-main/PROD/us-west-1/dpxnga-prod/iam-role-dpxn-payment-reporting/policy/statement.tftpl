@@ -1,0 +1,107 @@
+${jsonencode({
+   "Version":"2012-10-17",
+   "Statement":[
+      {
+         "Action":[
+            "sqs:DeleteMessage",
+            "sqs:ReceiveMessage",
+            "sqs:SendMessage",
+            "sqs:ListQueues"
+         ],
+         "Effect":"Allow",
+         "Resource":[
+            "${sqs-dpxn-file-events-user-reports-queue-arn}",
+	          "${sqs-dpxn-payment-events-user-reports-queue-arn}",
+            "${sqs-dpxn-payment-events-billing-queue-arn}",
+            "${sqs-dpxn-payment-events-queue-arn}",
+            "${sqs-dpxn-file-events-billing-queue-arn}",
+            "${sqs-dpxn-file-events-accepted-queue-arn}"
+         ]
+      },
+      {
+         "Action": [
+          "s3:PutObject",
+          "s3:PutObjectAcl",
+          "s3:GetObject",
+          "s3:GetObjectAcl",
+          "s3:ListBucket"
+ 	      ],
+        "Effect": "Allow",
+        "Resource": [
+            "${s3-dpxn-userreportdata-bucket-arn}/*",
+            "${s3-dpxn-userreportdata-bucket-arn}"
+        ]
+      },
+      {
+         "Action": [
+          "s3:PutObject",
+          "s3:PutObjectAcl",
+          "s3:GetObject",
+          "s3:GetObjectAcl",
+          "s3:ListBucket"
+ 	      ],
+        "Effect": "Allow",
+        "Resource": [
+            "${s3-dpxn-bidm-payment-report-bucket-arn}/*",
+            "${s3-dpxn-bidm-payment-report-bucket-arn}"
+        ]
+      },
+      {
+         "Action": [
+          "s3:PutObject",
+          "s3:PutObjectAcl",
+          "s3:ListBucket"
+ 	      ],
+        "Effect": "Allow",
+        "Resource": [
+            "${s3-dpxn-disburser-billing-bucket-arn}/*",
+            "${s3-dpxn-disburser-billing-bucket-arn}",
+            "${s3-dpxn-tmobs-billing-bucket-arn}/*",
+            "${s3-dpxn-tmobs-billing-bucket-arn}"
+        ]
+      },
+      {
+         "Action":[
+            "kms:Encrypt",
+            "kms:Decrypt",
+            "kms:GenerateDataKey",
+            "kms:DescribeKey",
+            "kms:ReEncryptFrom",
+            "kms:ReEncryptTo"
+         ],
+         "Effect":"Allow",
+         "Resource":[
+            "${kms-dpxn-payment-reporting-key-arn}",
+            "${kms-dpxn-tmobs-billing-key-arn}",
+            "${kms-dpxn-disburser-billing-key-arn}"
+         ]
+      },
+      {
+         "Sid":"AccessForCloudwatch",
+         "Effect":"Allow",
+         "Action":[
+            "cloudwatch:ListMetrics",
+            "cloudwatch:PutMetricData",
+            "cloudwatch:GetMetricStatistics",
+            "ec2:DescribeInstances"
+         ],
+         "Resource":[
+            "*"
+         ]
+      },
+      {
+         "Sid":"AccessForCloudwatchLogs",
+         "Effect":"Allow",
+         "Action":[
+            "ec2:DescribeInstances",
+            "ec2:DescribeTags",
+            "logs:CreateLogGroup",
+            "logs:CreateLogStream",
+            "logs:DescribeLogStreams",
+            "logs:PutLogEvents"
+         ],
+         "Resource":"${logstream-dpxn-payment-reporting-cloudwatch-log-group-arn}"
+      }
+   ]
+})
+}

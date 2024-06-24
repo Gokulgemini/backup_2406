@@ -1,0 +1,8 @@
+{
+  "id": "ccascan",
+  "uid": 1005,
+  "groups": [ "ccascan" ],
+  "password": "$1$3BYrzzle$tHCMb8L66tcM3qPWsp8.b0",
+  "shell": "\/bin\/bash",
+  "action": "create"
+}

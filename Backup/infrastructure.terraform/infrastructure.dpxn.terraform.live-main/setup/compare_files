@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+print_region_report () {
+  REGION=$1
+  TYPE=$2
+
+  if [ $TYPE = "_global" ]; then
+    FOLDERS=$(ls -1ld TEMPLATE/$REGION/_global/* | grep ^d | awk -F '/' '{print $4}')
+  else 
+    FOLDERS=$(ls -1ld TEMPLATE/$REGION/template/* | grep ^d | awk -F '/' '{print $4}')
+  fi
+  printf '=%.0s' {1..45}; printf "$REGION"; printf '=%.0s' {1..45}; printf "\n"
+  printf "%-50s | %-13s | %-13s | %-13s\n" "Folder: $TYPE" "Template" "Preprod" "Production"
+  printf '=%.0s' {1..99}; printf "\n"
+  for FOLDER in $FOLDERS
+  do
+    if [ $TYPE = "_global" ]; then
+      TEMPLFILE="./TEMPLATE/$REGION/_global/$FOLDER/terragrunt.hcl"
+      PREPRODFILE="./DEV/$REGION/_global/$FOLDER/terragrunt.hcl"
+      PRODFILE="./PROD/$REGION/_global/$FOLDER/terragrunt.hcl"
+    else 
+      TEMPLFILE="./TEMPLATE/$REGION/template/$FOLDER/terragrunt.hcl"
+      PREPRODFILE="./DEV/$REGION/preproduction/$FOLDER/terragrunt.hcl"
+      PRODFILE="./PROD/$REGION/production/$FOLDER/terragrunt.hcl"
+    fi
+    
+    if [ ! -f "$PREPRODFILE" ] || [ ! -f "$PRODFILE" ]; then
+        printf "%-50s | %-10s\n" "$FOLDER" "FILE DOES NOT EXIST IN ALL ENVS"
+    else
+      HASHTMPL=$(md5 -q $TEMPLFILE)
+      HASHPRE=$(md5 -q $PREPRODFILE)
+      HASHPROD=$(md5 -q $PRODFILE)
+      if [ "$HASHTMPL" = "$HASHPRE" ] && [ "$HASHPRE" = "$HASHPROD" ]; then
+        printf "%-50s | %-15s | %-15s | %-15s\n" "$FOLDER" "✔" "✔" "✔"
+      else 
+        printf "%-50s | %-13s | %-13s | %-13s\n" "$FOLDER" "FALSE ${HASHTMPL:0:4}" "FALSE ${HASHPRE:0:4}" "FALSE ${HASHPROD:0:4}"
+      fi 
+    fi
+  done
+  printf "\n"
+
+}
+
+print_region_report "us-west-1" "_global"
+print_region_report "us-west-2" "_global"
+print_region_report "us-west-1" "main"
+print_region_report "us-west-2" "main"

@@ -1,0 +1,18 @@
+<div id="btns-paging">
+    <button mat-button (click)="firstPage()" id="firstPage" matTooltip="First" [class.image_gray]="isFirstPage">
+        <img class="icons" alt="First Page Button" src="assets/images/icons/sharp_first_page_white_18dp.png"/>
+    </button>
+    <button mat-button (click)="previousPage()" id="previousPage" matTooltip="Previous" [class.image_gray]="isFirstPage">
+        <img class="icons" alt="Previous Page Button" src="assets/images/icons/sharp_chevron_left_white_18dp.png"/>
+    </button>               
+    <input  (change)="changePageNumber()" (blur)="changePageNumber()" (keyup.enter)="changePageNumber()" 
+            class="inputPageNumber" [max]="imageService.imageConfig.ImageTotalPage" min="1" maxlength="2" id="pageNumber" type="number" 
+            [(ngModel)]="imageService.imageConfig.ImagePage">   
+    <span id="total_pages" class="totalPage">of {{ imageService.imageConfig.ImageTotalPage }}</span>   
+    <button mat-button (click)="nextPage()" id="nextPage" matTooltip="Next" [class.image_gray]="isLastPage">
+        <img class="icons" alt="Next Page Button" src="assets/images/icons/sharp_chevron_right_white_18dp.png"/>
+    </button>
+    <button mat-button (click)="lastPage()" id="lastPage" matTooltip="Last" [class.image_gray]="isLastPage">
+        <img class="icons" alt="Last Page Button" src="assets/images/icons/sharp_last_page_white_18dp.png"/>
+    </button>
+</div>

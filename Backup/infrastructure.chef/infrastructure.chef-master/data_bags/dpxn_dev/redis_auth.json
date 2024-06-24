@@ -1,0 +1,10 @@
+{
+  "id": "redis_auth",
+  "password": {
+    "encrypted_data": "N8Ow4/a4cpTXctPcMOb6JUoFdwLvdtpwq2g3UpK5s6lLJ7k=\n",
+    "iv": "82qni/vC00C/yLQU\n",
+    "auth_tag": "4HevSySnTeYo5c3ZcvthxA==\n",
+    "version": 3,
+    "cipher": "aes-256-gcm"
+  }
+}

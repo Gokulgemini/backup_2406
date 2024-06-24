@@ -1,0 +1,10 @@
+Topics covered
+
+Python Decision Making
+ 1. If..Else
+Python Iterations
+ 1. For Loop
+ 2. While Loop
+ 3. Break, Continue, Pass
+Python Functions
+ 1. Keyword, Default, Args

@@ -1,0 +1,58 @@
+.inputPageNumber{
+    width: 45px;
+    text-align: center;
+    line-height: 1;    
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance:textfield;
+}
+
+.image_gray{
+   opacity: 0.4;
+   filter: alpha(opacity=40);
+   zoom: 1;
+}
+
+.totalPage{
+    padding-left: 4%; 
+}
+
+#btns-paging {
+    margin-left: 20px;
+}
+
+#btns-paging button {
+    margin-left: 2px !important;
+    min-width: 20px
+}
+
+@media only screen and (max-width: 950px){
+    #btns-paging {
+        margin-left: 1px;
+    }   
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    #btns-paging input {
+        vertical-align: top;
+    }
+}
+
+@-moz-document url-prefix() {
+    #btns-paging input {    
+        height: 42%;
+    }    
+}
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    #btns-paging input {
+        vertical-align: top;
+    }
+}

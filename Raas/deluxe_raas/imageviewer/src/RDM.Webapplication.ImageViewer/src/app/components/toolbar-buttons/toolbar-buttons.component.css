@@ -1,0 +1,29 @@
+button{
+    min-width: 30px;    
+}
+
+span{
+    border-left: thin solid #B0BEC5;
+}
+
+.btns-left{
+    margin-right: 15px;
+}
+
+#btns-middle{
+    border-left: thin solid #B0BEC5;
+}
+
+@media only screen and (max-width: 355px){
+    button { min-width: 25px !important; }
+}
+
+@media screen{
+    .pageBreak{
+        display: none;
+    }
+}
+
+@media print{  
+    p.pageBreak {page-break-after: always;}
+}

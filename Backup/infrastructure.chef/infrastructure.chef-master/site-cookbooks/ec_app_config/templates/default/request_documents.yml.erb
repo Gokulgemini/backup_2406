@@ -1,0 +1,18 @@
+base: &base
+<% @configuration.each do |key, value| %>
+  <%= key %>: <%= value %>
+<% end %>
+development:
+  <<: *base
+test:
+  <<: *base
+staging:
+  <<: *base
+sandbox:
+  <<: *base
+training:
+  <<: *base
+preproduction:
+  <<: *base
+production:
+  <<: *base

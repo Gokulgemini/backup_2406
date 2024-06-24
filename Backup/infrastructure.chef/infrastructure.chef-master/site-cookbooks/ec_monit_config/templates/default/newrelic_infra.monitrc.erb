@@ -1,0 +1,5 @@
+check process newrelic_infra
+  with pidfile /var/run/newrelic-infra/newrelic-infra.pid
+  start program = "/bin/bash -c 'systemctl start newrelic-infra'"
+  stop program = "/bin/bash -c 'systemctl stop newrelic-infra'"
+  group newrelic_infra

@@ -1,0 +1,3 @@
+creation_rules:
+- path_regex: .*
+  kms: arn:aws:kms:us-west-1:323265901760:key/mrk-5efcb27e769240a5991d8fd1affef648+arn:aws:iam::323265901760:role/Terraform-Admin-Role 

@@ -1,0 +1,20 @@
+# Deployed by Chef. Make changes in the databag used by chef to make
+# permanent.  This will be overwritten on the next Chef run.
+
+smtp: &smtp
+<% @configuration.each do |key, value| %>
+  <%= key %>: <%= value %>
+<% end %>
+
+deployed: &deployed
+  <<: *smtp
+staging:
+  <<: *deployed
+preproduction:
+  <<: *deployed
+sandbox:
+  <<: *deployed
+training:
+  <<: *deployed
+production:
+  <<: *deployed

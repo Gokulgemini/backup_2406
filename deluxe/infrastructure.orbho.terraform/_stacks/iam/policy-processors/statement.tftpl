@@ -1,0 +1,129 @@
+${jsonencode({
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ssm:DescribeAssociation",
+        "ssm:GetDeployablePatchSnapshotForInstance",
+        "ssm:GetDocument",
+        "ssm:DescribeDocument",
+        "ssm:GetManifest",
+        "ssm:GetParameter",
+        "ssm:GetParameters",
+        "ssm:ListAssociations",
+        "ssm:ListInstanceAssociations",
+        "ssm:PutInventory",
+        "ssm:PutComplianceItems",
+        "ssm:PutConfigurePackageResult",
+        "ssm:UpdateAssociationStatus",
+        "ssm:UpdateInstanceAssociationStatus",
+        "ssm:UpdateInstanceInformation",
+        "ssm:SendCommand"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ssmmessages:CreateControlChannel",
+        "ssmmessages:CreateDataChannel",
+        "ssmmessages:OpenControlChannel",
+        "ssmmessages:OpenDataChannel"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ec2messages:AcknowledgeMessage",
+        "ec2messages:DeleteMessage",
+        "ec2messages:FailMessage",
+        "ec2messages:GetEndpoint",
+        "ec2messages:GetMessages",
+        "ec2messages:SendReply"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeInstances",
+        "ec2:DescribeInstanceStatus",
+        "ec2:CreateTags",
+        "ec2:DescribeTags"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "AllowDomainJoining",
+      "Effect": "Allow",
+      "Action": [
+        "ds:CreateComputer"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Action": [
+        "sqs:DeleteMessage",
+        "sqs:ReceiveMessage",
+        "sqs:SendMessage",
+        "sqs:ListQueues"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "${sqs-dep-batch-queue-arn}",
+        "${sqs-dep-orbo-queue-arn}"
+      ]
+    },
+    {
+      "Action": [
+        "s3:GetObject",
+        "s3:GetObjectAcl",
+        "s3:PutObject",
+        "s3:PutObjectAcl",
+        "s3:ListBucket",
+        "s3:ListObjectsV2"
+        ],
+      "Effect": "Allow",
+      "Resource": [
+        "${s3-dep-documents-bucket-arn}/*",
+        "${s3-dep-documents-bucket-arn}",
+        "${s3-dep-results-bucket-arn}/*",
+        "${s3-dep-results-bucket-arn}"
+      ]
+    },
+    {
+      "Action": [
+        "kms:Encrypt",
+        "kms:Decrypt",
+        "kms:GenerateDataKey",
+        "kms:DescribeKey",
+        "kms:ReEncryptFrom",
+        "kms:ReEncryptTo"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "${kms-dep-processors-key-arn}",
+        "${kms-dep-orbo-services-key-arn}",
+        "${kms-dep-documents-key-arn}",
+        "${kms-dep-results-key-arn}",
+        "${kms-db-key-key-arn}"
+      ]
+    },
+    {
+      "Action": [
+        "dynamodb:GetItem",
+        "dynamodb:BatchGetItem",
+        "dynamodb:Scan",
+        "dynamodb:Query",
+        "dynamodb:ConditionCheckItem"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "${dep-results-dynamodb-table-arn}"
+      ]                         
+    }
+  ]
+})
+}

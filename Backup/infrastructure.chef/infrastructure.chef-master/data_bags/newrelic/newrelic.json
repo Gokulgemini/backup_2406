@@ -1,0 +1,10 @@
+{
+  "id": "newrelic",
+  "license": {
+    "encrypted_data": "YgiYlqQc3TSOZJVTx5IaKaMj6iq8L/9WbQLufx3jm9kTmhS5KVCjW5iY57tp\nkR42trvSjL2jcr/ecDw=\n",
+    "iv": "bdiCfqZMQekedD9o\n",
+    "auth_tag": "d4PsF+MAhlbG7ifQ94df3A==\n",
+    "version": 3,
+    "cipher": "aes-256-gcm"
+  }
+}

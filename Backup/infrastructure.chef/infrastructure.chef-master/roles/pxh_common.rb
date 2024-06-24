@@ -1,0 +1,6 @@
+name 'pxh_common'
+description 'Setups up the pxh_common role'
+run_list 'recipe[role_pxh_common]'
+         'recipe[nnt_change_tracker]'
+         'recipe[mcafee]'
+         'recipe[rapid7]'

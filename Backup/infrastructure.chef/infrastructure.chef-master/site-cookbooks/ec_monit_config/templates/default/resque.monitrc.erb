@@ -1,0 +1,19 @@
+<% @worker_count.times do |i| %>
+<% if @retrievals_exists %>
+check process resque-<%= i -%>
+  with pidfile /data/<%= @app_name %>/shared/pids/resque-<%= i -%>.pid
+  start program = "/bin/bash -c 'cd /data/<%= @app_name %>/current && /usr/bin/env ENGINE_RETRIEVALS=1 RACK_ENV=<%= @rails_env %> RAILS_ENV=<%= @rails_env %> /usr/bin/nohup bundle exec rake environment resque:work QUEUE=* VERBOSE=1 PIDFILE=pids/resque-<%= i -%>.pid >> log/resque_worker.log 2>&1' "
+    as UID deploy
+    as GID deploy
+  stop program = "/bin/bash -c '/bin/kill -9 `cat /data/<%= @app_name %>/shared/pids/resque-<%= i -%>.pid` && rm -f /data/<%= @app_name %>/shared/pids/resque-<%= i -%>.pid; exit 0;'"
+  group resque
+<% else %>
+check process resque-<%= i -%>
+  with pidfile /data/<%= @app_name %>/shared/pids/resque-<%= i -%>.pid
+  start program = "/bin/bash -c 'cd /data/<%= @app_name %>/current && /usr/bin/env RACK_ENV=<%= @rails_env %> RAILS_ENV=<%= @rails_env %> /usr/bin/nohup bundle exec rake environment resque:work QUEUE=* VERBOSE=1 PIDFILE=pids/resque-<%= i -%>.pid >> log/resque_worker.log 2>&1' "
+    as UID deploy
+    as GID deploy
+  stop program = "/bin/bash -c '/bin/kill -9 `cat /data/<%= @app_name %>/shared/pids/resque-<%= i -%>.pid` && rm -f /data/<%= @app_name %>/shared/pids/resque-<%= i -%>.pid; exit 0;'"
+  group resque
+<% end %>
+<% end %>

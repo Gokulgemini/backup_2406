@@ -1,0 +1,3 @@
+creation_rules:
+- path_regex: .*
+  kms: arn:aws:kms:us-west-1:323265901760:alias/dpxnga-prod-production-secrets-sops-key+arn:aws:iam::323265901760:role/Terraform-Admin-Role
